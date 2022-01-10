@@ -77,4 +77,4 @@ export VISUAL=/usr/bin/vim
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-fortune | cowsay -p
+fortune | cowsay -d -p
