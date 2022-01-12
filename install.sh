@@ -15,7 +15,7 @@ case $OS in
 
     #deps and utils for ubuntu
     if [[ $distro == *"Ubuntu"* ]]; then
-      if "$(lsb_release -r -s) <= 21.10" | bc; then
+      if $(echo "$(lsb_release -r -s) <= 21.10" | bc); then
         sudo apt -y install exa autojump fd-find fzf vim fortune cowsay htop tmux ncdu httpie tldr
       else
         sudo apt -y install cargo autojump fd-find fzf vim fortune cowsay htop tmux ncdu httpie tldr
