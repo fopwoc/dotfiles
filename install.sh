@@ -15,12 +15,8 @@ case $OS in
 
     #deps and utils for ubuntu
     if [[ $distro == *"Ubuntu"* ]]; then
-      if [[ $(echo "$(lsb_release -r -s) >= 21.10" | bc) ]]; then
-        sudo apt -y install exa autojump fd-find fzf vim fortune cowsay htop tmux ncdu httpie tldr
-      else
-        sudo apt -y install cargo autojump fd-find fzf vim fortune cowsay htop tmux ncdu httpie tldr
-        cargo install exa
-      fi
+      sudo apt -y install autojump fd-find fzf vim fortune cowsay htop tmux ncdu httpie tldr
+      apt show exa > /dev/null 2>&1 && sudo apt -y install exa || (sudo apt -y install cargo && cargo install exa)
     else
       echo "Unknown distro! I cant install deps and utils..."
     fi
