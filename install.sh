@@ -90,7 +90,7 @@ if [[ ! -f "$HOME/.vim/autoload/plug.vim" ]]; then
 fi
 
 #update vim plugins
-vim +'PlugInstall --sync' +qa
+vim -E -s -u $HOME/.vimrc +PlugInstall +qall
 
 
 #run zsh
