@@ -21,20 +21,19 @@ ZSH_CUSTOM_AUTOUPDATE_QUIET=true
 COMPLETION_WAITING_DOTS="true"
 
 plugins=(
-fast-syntax-highlighting #https://github.com/zdharma-continuum/fast-syntax-highlighting
-zsh-autosuggestions #https://github.com/zsh-users/zsh-autosuggestions
-autoupdate #https://github.com/TamCore/autoupdate-oh-my-zsh-plugins
+fast-syntax-highlighting
+zsh-autosuggestions
+autoupdate
 autojump
-fzf-tab #https://github.com/Aloxaf/fzf-tab
+fzf-tab
 docker
 fzf
-ssh #https://github.com/zpm-zsh/ssh
+ssh
 git
 sudo
 )
 
 source $ZSH/oh-my-zsh.sh
-
 export LANG=ru_RU.UTF-8
 
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
@@ -59,9 +58,7 @@ alias lx='exa -lbhHigUmuSa@ --time-style=long-iso --git --color-scale'
 alias ty='echo "ur welcome"'
 alias please='sudo'
 
-#alias 'google-chrome'='chromium'
 export CHROME_EXECUTABLE=/usr/bin/google-chrome
-
 
 export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
@@ -77,17 +74,7 @@ export VISUAL=/usr/bin/vim
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-case $OS in
-  Darwin)
-    ;;
-
-  Linux)
-      export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-   ;;
-
-  *)
-    ;;
-esac
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 fortune | cowsay -d -p
