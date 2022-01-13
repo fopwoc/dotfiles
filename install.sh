@@ -30,7 +30,7 @@ esac
 
 #install oh-my-zsh
 if [[ ! -d "$HOME/.oh-my-zsh/" ]]; then
-  sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  RUNZSH=no sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --keep-zshrc
 fi
 
 #symlink zshrc
