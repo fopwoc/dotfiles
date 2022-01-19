@@ -23,6 +23,7 @@ COMPLETION_WAITING_DOTS="true"
 plugins=(
 fast-syntax-highlighting
 zsh-autosuggestions
+command-not-found
 autoupdate
 autojump
 fzf-tab
@@ -58,6 +59,8 @@ alias lx='exa -lbhHigUmuSa@ --time-style=long-iso --git --color-scale'
 alias ty='echo "ur welcome"'
 alias please='sudo'
 
+alias yolo='git commit -m "$(curl -s http://whatthecommit.com/index.txt)"'
+
 export CHROME_EXECUTABLE=/usr/bin/google-chrome
 
 export PATH=$HOME/.local/bin:$PATH
@@ -78,4 +81,3 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 fortune | cowsay -d -p
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
