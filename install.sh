@@ -7,7 +7,7 @@ OS=$(uname -s)
 case $OS in
   Darwin)
     #deps and cool utils on macos
-    brew install exa ripgrep fd autojump fzf vim fortune cowsay htop tmux tldr httpie ncdu
+    brew install exa ripgrep fd git-delta bat autojump fzf vim fortune cowsay htop tmux tldr httpie ncdu
     ;;
 
   Linux)
@@ -16,7 +16,7 @@ case $OS in
     #deps and utils for ubuntu
     if [[ $distro == *"Ubuntu"* ]]; then
       sudo apt -y install autojump fzf vim fortune cowsay htop tmux ncdu pip
-      sudo snap install rustup --classic && rustup update stable && cargo install exa fd-find ripgrep
+      sudo snap install rustup --classic && rustup update stable && cargo install exa fd-find ripgrep git-delta bat
       pip install tldr httpie
     else
       echo "Unknown distro! I cant install deps and utils..."
@@ -46,6 +46,12 @@ if [[ ! -L "$HOME/.vimrc" ]]; then
   echo "symlink vimrc"
   mv $HOME/.vimrc $HOME/.vimrc.bak
   ln -s $(pwd)/.vimrc $HOME/.vimrc
+fi
+
+#symlink .lessfilter
+if [[ ! -L "$HOME/.lessfilter" ]]; then
+  echo "symlink lessfilter"
+  ln -fs $(pwd)/.lessfilter $HOME/.lessfilter
 fi
 
 

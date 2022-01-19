@@ -1,0 +1,11 @@
+#! /usr/bin/env sh
+mime=$(file -bL --mime-type "$1")
+category=${mime%%/*}
+kind=${mime##*/}
+if [ -d "$1" ]; then
+	exa --git -hl --color=always --icons "$1"
+elif [ "$category" = text ]; then
+	bat --color=always "$1"
+else
+	lesspipe.sh "$1" | bat --color=always
+fi
