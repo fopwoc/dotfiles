@@ -7,7 +7,7 @@ OS=$(uname -s)
 case $OS in
   Darwin)
     #deps and cool utils on macos
-    brew install exa autojump fd fzf vim fortune cowsay htop tmux tldr httpie ncdu
+    brew install exa ripgrep fd autojump fzf vim fortune cowsay htop tmux tldr httpie ncdu
     ;;
 
   Linux)
@@ -15,9 +15,9 @@ case $OS in
 
     #deps and utils for ubuntu
     if [[ $distro == *"Ubuntu"* ]]; then
-      sudo apt -y install autojump fd-find fzf vim fortune cowsay htop tmux ncdu httpie pip
-      pip install tldr
-      apt show exa > /dev/null 2>&1 && sudo apt -y install exa || (sudo apt -y install cargo && cargo install exa)
+      sudo apt -y install autojump fzf vim fortune cowsay htop tmux ncdu pip
+      sudo snap install rustup --classic && rustup update stable && cargo install exa fd-find ripgrep
+      pip install tldr httpie
     else
       echo "Unknown distro! I cant install deps and utils..."
     fi
