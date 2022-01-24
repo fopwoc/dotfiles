@@ -42,15 +42,16 @@ autoload -U compinit promptinit
 compinit -C
 
 zstyle ':completion::complete:*' use-cache 1
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
+
+previewlist="(cd|vim|git-(add|diff|restore))"
+zstyle ":fzf-tab:complete:$previewlist:argument-rest" fzf-flags '--multi --height=20 --preview-window=right:65%:wrap'
+zstyle ":fzf-tab:complete:$previewlist:*" fzf-preview 'less ${(Q)realpath}'
+
 zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
 
-zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview \
-	'git diff $word | delta'|
-zstyle ':fzf-tab:complete:git-log:*' fzf-preview \
-	'git log --color=always $word'
-zstyle ':fzf-tab:complete:git-help:*' fzf-preview \
-	'git help $word | bat -plman --color=always'
+zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview 'git diff $word | delta'
+zstyle ':fzf-tab:complete:git-log:*' fzf-preview 'git log --color=always $word'
+zstyle ':fzf-tab:complete:git-help:*' fzf-preview 'git help $word | bat -plman --color=always'
 zstyle ':fzf-tab:complete:git-show:*' fzf-preview \
 	'case "$group" in
 	"commit tag") git show --color=always $word ;;
@@ -63,7 +64,6 @@ zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
 	*) git log --color=always $word ;;
 	esac'
 
-zstyle ':fzf-tab:complete:*:*' fzf-preview 'less ${(Q)realpath}'
 export LESSOPEN='|~/.lessfilter %s'
 
 HISTFILE=~/.zsh_history
@@ -71,7 +71,7 @@ HISTSIZE=999999999
 SAVEHIST=$HISTSIZE
 
 alias ls='exa'
-alias l='exa -la --group-directories-first'
+alias l='exa -la --group-directories-first --icons'
 alias lg='l --git'
 alias lt='l --tree --level 2'
 alias lst='exa --tree --level 2'
