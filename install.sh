@@ -85,9 +85,6 @@ if [[ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/ssh" ]]; then
     ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/ssh
 fi
 
-source ~/.zshrc
-build-fzf-tab-module
-
 #install vim plug
 if [[ ! -f "$HOME/.vim/autoload/plug.vim" ]]; then
   curl -fLo $HOME/.vim/autoload/plug.vim --create-dirs \
@@ -99,5 +96,4 @@ vim -E -s -u $HOME/.vimrc +PlugInstall +qall
 
 
 #run zsh
-clear
-exec /bin/zsh
+exec /bin/zsh -c "source ~/.zshrc && build-fzf-tab-module && clear && reset && echo \"have a nice time!!!\""
