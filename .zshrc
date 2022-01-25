@@ -44,9 +44,8 @@ compinit -C
 zstyle ':completion::complete:*' use-cache 1
 
 previewlist="(cd|vim|git-(add|diff|restore))"
-zstyle ":fzf-tab:complete:$previewlist:argument-rest" fzf-flags --multi --height=40 --preview-window=right:15%:wrap
+zstyle ":fzf-tab:complete:*:argument-rest" fzf-flags --multi --height=40% --preview-window=right:60%:wrap
 zstyle ":fzf-tab:complete:$previewlist:*" fzf-preview 'less ${(Q)realpath}'
-zstyle ':fzf-tab:complete:cd:*' popup-pad 30 0
 
 zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
 
