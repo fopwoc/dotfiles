@@ -15,7 +15,7 @@ case $OS in
 
     #deps and utils for ubuntu
     if [[ $distro == *"Ubuntu"* ]]; then
-      sudo apt -y install autojump fzf vim fortune cowsay htop tmux ncdu pip
+      sudo apt -y install autojump fzf vim fortune cowsay htop tmux ncdu pip libncurses5-dev
       sudo snap install rustup --classic && rustup update stable && cargo install exa fd-find ripgrep git-delta bat
       pip install tldr httpie
     else
@@ -85,6 +85,8 @@ if [[ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/ssh" ]]; then
     ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/ssh
 fi
 
+source ~/.zshrc
+build-fzf-tab-module
 
 #install vim plug
 if [[ ! -f "$HOME/.vim/autoload/plug.vim" ]]; then
