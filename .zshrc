@@ -40,10 +40,19 @@ ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 autoload -U compinit promptinit
 compinit -C
 
+FZF_FLAGS='--multi --height=50% --preview-window=right:70%:wrap'
+FZF_PREVIEW='less ${(Q)realpath}'
+
 zstyle ':completion::complete:*' use-cache 1
 
-zstyle ":fzf-tab:complete:*:argument-rest" fzf-flags --multi --height=40% --preview-window=right:70%:wrap
-zstyle ":fzf-tab:complete:*:argument-rest" fzf-preview 'less ${(Q)realpath}'
+zstyle ":fzf-tab:complete:*:argument-rest" fzf-preview $FZF_PREVIEW
+zstyle ":fzf-tab:complete:*:argument-rest" fzf-flags $(echo $FZF_FLAGS)
+
+zstyle ":fzf-tab:complete:(cd|j):*" fzf-preview $FZF_PREVIEW
+zstyle ":fzf-tab:complete:(cd|j):*" fzf-flags $(echo $FZF_FLAGS)
+
+zstyle ':fzf-tab:complete:(\\|*/|)man:*' fzf-preview 'man $word'
+zstyle ":fzf-tab:complete:(\\|*/|)man:*" fzf-flags $(echo $FZF_FLAGS)
 
 zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
 zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-preview 'echo ${(P)word}'
@@ -62,9 +71,6 @@ zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
 	"recent commit object name") git show --color=always $word | delta ;;
 	*) git log --color=always $word ;;
 	esac'
-
-zstyle ':fzf-tab:complete:(\\|*/|)man:*' fzf-preview 'man $word'
-
 export LESSOPEN='|~/.lessfilter %s'
 
 HISTFILE=~/.zsh_history
@@ -82,6 +88,13 @@ alias lx='exa -lbhHigUmuSa@ --time-style=long-iso --git --color-scale'
 
 alias ty='echo "ur welcome"'
 alias please='sudo'
+
+alias :q='exit'
+alias :q!='exit'
+alias :wq='exit'
+alias :wq!='exit'
+
+alias claer='clear'
 
 alias yolo='git commit -m "$(curl -s http://whatthecommit.com/index.txt)"'
 
@@ -102,7 +115,8 @@ export VISUAL=/usr/bin/vim
 export _ZO_ECHO=1
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-eval "$(zoxide init zsh --cmd j)"
+eval "$(zoxide init zsh --cmd cd)"
+alias j='cd'
 
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
