@@ -25,7 +25,6 @@ fast-syntax-highlighting
 zsh-autosuggestions
 command-not-found
 autoupdate
-autojump
 fzf-tab
 docker
 fzf
@@ -100,7 +99,10 @@ export EDITOR=/usr/bin/vim
 export VISUAL=/usr/bin/vim
 #export NODE_OPTIONS=--openssl-legacy-provider
 
+export _ZO_ECHO=1
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+eval "$(zoxide init zsh --cmd j)"
 
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
