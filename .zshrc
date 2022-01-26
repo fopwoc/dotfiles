@@ -43,11 +43,11 @@ compinit -C
 
 zstyle ':completion::complete:*' use-cache 1
 
-previewlist="(cd|vim|git-(add|diff|restore))"
-zstyle ":fzf-tab:complete:*:argument-rest" fzf-flags --multi --height=40% --preview-window=right:60%:wrap
-zstyle ":fzf-tab:complete:$previewlist:*" fzf-preview 'less ${(Q)realpath}'
+zstyle ":fzf-tab:complete:*:argument-rest" fzf-flags --multi --height=40% --preview-window=right:70%:wrap
+zstyle ":fzf-tab:complete:*:argument-rest" fzf-preview 'less ${(Q)realpath}'
 
 zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
+zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-preview 'echo ${(P)word}'
 
 zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview 'git diff $word | delta'
 zstyle ':fzf-tab:complete:git-log:*' fzf-preview 'git log --color=always $word'
@@ -63,6 +63,8 @@ zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
 	"recent commit object name") git show --color=always $word | delta ;;
 	*) git log --color=always $word ;;
 	esac'
+
+zstyle ':fzf-tab:complete:(\\|*/|)man:*' fzf-preview 'man $word'
 
 export LESSOPEN='|~/.lessfilter %s'
 

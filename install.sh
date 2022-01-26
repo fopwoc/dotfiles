@@ -7,7 +7,7 @@ OS=$(uname -s)
 case $OS in
   Darwin)
     #deps and cool utils on macos
-    brew install exa ripgrep fd git-delta bat autojump fzf vim fortune cowsay htop tmux tldr httpie ncdu
+    brew install exa ripgrep fd git-delta bat tealdeer autojump fzf vim fortune cowsay htop tmux httpie ncdu
     ;;
 
   Linux)
@@ -16,7 +16,7 @@ case $OS in
     #deps and utils for ubuntu
     if [[ $distro == *"Ubuntu"* ]]; then
       sudo apt -y install autojump fzf vim fortune cowsay htop tmux ncdu pip libncurses5-dev
-      sudo snap install rustup --classic && rustup update stable && cargo install exa fd-find ripgrep git-delta bat
+      sudo snap install rustup --classic && rustup update stable && cargo install exa fd-find ripgrep git-delta bat tealdeer
       pip install tldr httpie
     else
       echo "Unknown distro! I cant install deps and utils..."
@@ -94,6 +94,8 @@ fi
 #update vim plugins
 vim -E -s -u $HOME/.vimrc +PlugInstall +qall
 
+#update tldr
+tldr --update
 
-#run zsh
+#run zsh and build fzf color binary
 exec /bin/zsh -c "source ~/.zshrc && build-fzf-tab-module && clear && reset && echo \"have a nice time!!!\""
