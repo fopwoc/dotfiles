@@ -55,7 +55,7 @@ utc_time_offset = "+3"
 
 [cmd_duration]
 min_time = 500
-format = "[$duration](bold yellow) "
+format = "[$duration](yellow) "
 
 [status]
 style = "bg:red black"
