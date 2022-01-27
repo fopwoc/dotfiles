@@ -7,7 +7,7 @@ OS=$(uname -s)
 case $OS in
   Darwin)
     #deps and cool utils on macos
-    brew install exa ripgrep fd git-delta bat tealdeer zoxide fzf vim fortune cowsay htop tmux httpie ncdu
+    brew install exa ripgrep fd git-delta bat tealdeer zoxide starship fzf vim fortune cowsay htop tmux httpie ncdu
     ;;
 
   Linux)
@@ -16,7 +16,7 @@ case $OS in
     #deps and utils for ubuntu
     if [[ $distro == *"Ubuntu"* ]]; then
       sudo apt -y install fzf vim fortune cowsay htop tmux ncdu pip libncurses5-dev
-      sudo snap install rustup --classic && rustup update stable && cargo install exa fd-find ripgrep git-delta bat tealdeer zoxide
+      sudo snap install rustup --classic && rustup update stable && cargo install exa fd-find ripgrep git-delta bat tealdeer zoxide starship
       pip install tldr httpie
     else
       echo "Unknown distro! I cant install deps and utils..."
@@ -52,6 +52,12 @@ fi
 if [[ ! -L "$HOME/.lessfilter" ]]; then
   echo "symlink lessfilter"
   ln -fs $(pwd)/.lessfilter $HOME/.lessfilter
+fi
+
+#symlink .starship.toml
+if [[ ! -L "$HOME/.config/starship.toml" ]]; then
+  echo "symlink starship.toml"
+  ln -fs $(pwd)/starship.toml $HOME/.config/starship.toml
 fi
 
 

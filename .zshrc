@@ -115,6 +115,8 @@ export VISUAL=/usr/bin/vim
 export _ZO_ECHO=1
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+eval "$(starship init zsh)"
 eval "$(zoxide init zsh --cmd cd)"
 alias j='cd'
 
