@@ -1,6 +1,5 @@
 # ~/.config/starship.toml
 
-# Use custom format
 format = """
 $line_break\
 $username\
@@ -9,8 +8,8 @@ $directory\
 $git_branch\
 $git_commit\
 $git_state\
-$git_metrics\
 $git_status\
+$git_metrics\
 $hg_branch\
 $env_var\
 $line_break\
@@ -18,30 +17,16 @@ $status\
 $character"""
 
 right_format = """
-$docker_context\
-$dart\
-$java\
-$kotlin\
-$lua\
-$nodejs\
-$python\
 $line_break\
 $cmd_duration\
 $time"""
 
-# Wait 10 milliseconds for starship to check files under the current directory.
 scan_timeout = 10
-
-# Inserts a blank line between shell prompts
 add_newline = false
 
-# Replace the "❯" symbol in the prompt with "➜"
-[character]                            # The name of the module we are configuring is "character"
-success_symbol = "[λ](bold gray)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
-
-# Disable the package module, hiding it from the prompt completely
-[package]
-disabled = true
+[character]
+success_symbol = "[λ](bold grey)"
+error_symbol = "[x](bold red)"
 
 [username]
 style_user = "purple bold"
@@ -78,20 +63,23 @@ format = '[\[$common_meaning$signal_name$maybe_int\]]($style) '
 map_symbol = false
 disabled = false
 
+[git_branch]
+style = "green"
+format = "[$branch]($style) "
+
 [git_commit]
 commit_hash_length = 4
-tag_symbol = "🔖 "
+tag_symbol = "tag"
 
 [git_state]
 format = '[\($state( $progress_current of $progress_total)\)]($style) '
-cherry_pick = "[🍒 PICKING](bold red)"
 
 [git_metrics]
-added_style = "bold blue"
+added_style = "green"
+deleted_style = "red"
 format = '[+$added]($added_style)/[-$deleted]($deleted_style) '
+disabled = false
 
 [git_status]
-ahead = "⇡${count}"
-diverged = "⇕⇡${ahead_count}⇣${behind_count}"
-behind = "⇣${count}"
-
+format = '([$all_status$ahead_behind](218) )'
+disabled = false
