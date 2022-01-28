@@ -45,7 +45,7 @@ FZF_PREVIEW='less ${(Q)realpath}'
 
 zstyle ':completion::complete:*' use-cache 1
 
-zstyle ":fzf-tab:complete:*:argument-rest" fzf-preview $FZF_PREVIEW
+zstyle ":fzf-tab:complete:!(git):argument-rest" fzf-preview $FZF_PREVIEW
 zstyle ":fzf-tab:complete:*:argument-rest" fzf-flags $(echo $FZF_FLAGS)
 
 zstyle ":fzf-tab:complete:(cd|j):*" fzf-preview $FZF_PREVIEW
@@ -57,7 +57,7 @@ zstyle ":fzf-tab:complete:(\\|*/|)man:*" fzf-flags $(echo $FZF_FLAGS)
 zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
 zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-preview 'echo ${(P)word}'
 
-zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview 'git diff $word | delta'
+zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview 'git diff $word | delta --line-numbers'
 zstyle ':fzf-tab:complete:git-log:*' fzf-preview 'git log --color=always $word'
 zstyle ':fzf-tab:complete:git-help:*' fzf-preview 'git help $word | bat -plman --color=always'
 zstyle ':fzf-tab:complete:git-show:*' fzf-preview \
@@ -100,8 +100,9 @@ alias yolo='git commit -m "$(curl -s http://whatthecommit.com/index.txt)"'
 
 export CHROME_EXECUTABLE=/usr/bin/google-chrome
 
-export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
+export PATH=$HOME/.pub-cache/bin:$PATH
 
 export PATH=/opt/android-studio/bin:$PATH
 export PATH=/opt/flutter/bin:$PATH
