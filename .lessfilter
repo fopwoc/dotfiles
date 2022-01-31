@@ -2,10 +2,10 @@
 mime=$(file -bL --mime-type "$1")
 category=${mime%%/*}
 kind=${mime##*/}
-exa -la --git --icons --header --tree --level=0 -- "$1" && echo ""
+exa -la --git --header --tree --level=0 -- "$1" && echo ""
 
 if [ -d "$1" ]; then
-	exa -1a --color=always --icons "$1"
+	exa -1a --color=always "$1"
 elif [ "$category" = text ]; then
 	bat --color=always --style=numbers --line-range=:500 "$1"
 else

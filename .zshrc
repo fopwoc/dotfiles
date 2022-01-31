@@ -78,7 +78,7 @@ HISTSIZE=999999999
 SAVEHIST=$HISTSIZE
 
 alias ls='exa'
-alias l='exa -la --group-directories-first --icons'
+alias l='exa -la --group-directories-first'
 alias lg='l --git'
 alias lt='l --tree --level 2'
 alias lst='exa --tree --level 2'
