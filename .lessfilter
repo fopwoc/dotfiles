@@ -8,6 +8,8 @@ if [ -d "$1" ]; then
 	exa -1a --color=always "$1"
 elif [ "$category" = text ]; then
 	bat --color=always --style=numbers --line-range=:500 "$1"
+elif [ "$mime" = application/json ]; then
+	bat --color=always --style=numbers --line-range=:500 "$1"
 else
 	file -b "$1"
 	file -b --mime "$1"
