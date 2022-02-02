@@ -40,19 +40,20 @@ ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 autoload -U compinit promptinit
 compinit -C
 
+
 FZF_FLAGS='--multi --height=50% --preview-window=right:70%:wrap'
 FZF_PREVIEW='less ${(Q)realpath}'
 
 zstyle ':completion::complete:*' use-cache 1
 
-zstyle ":fzf-tab:complete:!(git):argument-rest" fzf-preview $FZF_PREVIEW
-zstyle ":fzf-tab:complete:*:argument-rest" fzf-flags $(echo $FZF_FLAGS)
+zstyle ':fzf-tab:complete:(vim|cat):argument-rest' fzf-preview $FZF_PREVIEW
+zstyle ':fzf-tab:complete:*:argument-rest' fzf-flags $(echo $FZF_FLAGS)
 
-zstyle ":fzf-tab:complete:(cd|j):*" fzf-preview $FZF_PREVIEW
-zstyle ":fzf-tab:complete:(cd|j):*" fzf-flags $(echo $FZF_FLAGS)
+zstyle ':fzf-tab:complete:(cd|j):*' fzf-preview $FZF_PREVIEW
+zstyle ':fzf-tab:complete:(cd|j):*' fzf-flags $(echo $FZF_FLAGS)
 
 zstyle ':fzf-tab:complete:(\\|*/|)man:*' fzf-preview 'man $word'
-zstyle ":fzf-tab:complete:(\\|*/|)man:*" fzf-flags $(echo $FZF_FLAGS)
+zstyle ':fzf-tab:complete:(\\|*/|)man:*' fzf-flags $(echo $FZF_FLAGS)
 
 zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
 zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-preview 'echo ${(P)word}'
