@@ -54,6 +54,12 @@ if [[ ! -L "$HOME/.config/nvim/init.vim" ]]; then
   ln -fs $(pwd)/nvim $HOME/.config/nvim
 fi
 
+#symlink wezterm
+if [[ ! -L "$HOME/.config/wezterm/wezterm.lua" ]]; then
+  echo "symlink wezterm"
+  ln -fs $(pwd)/wezterm $HOME/.config/wezterm
+fi
+
 #symlink .lessfilter
 if [[ ! -L "$HOME/.lessfilter" ]]; then
   echo "symlink lessfilter"
