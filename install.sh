@@ -48,6 +48,12 @@ if [[ ! -L "$HOME/.vimrc" ]]; then
   ln -s $(pwd)/.vimrc $HOME/.vimrc
 fi
 
+#symlink nvimrc
+if [[ ! -L "$HOME/.config/nvim/init.vim" ]]; then
+  echo "symlink nvim"
+  ln -fs $(pwd)/nvim $HOME/.config/nvim
+fi
+
 #symlink .lessfilter
 if [[ ! -L "$HOME/.lessfilter" ]]; then
   echo "symlink lessfilter"
