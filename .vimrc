@@ -1,12 +1,12 @@
 set encoding=utf-8
 set nocompatible
 set number
-"set lazyredraw
+set lazyredraw
 set wildmenu
 set ai
 set splitbelow
 "set mouse=a
-"set nowrap linebreak nolist
+set nowrap linebreak nolist
 set cursorline
 set showcmd
 set ttyfast
@@ -42,6 +42,7 @@ nnoremap <Up> gk
 nnoremap <Down> gj
 
 nmap <F12> :so $MYVIMRC<CR>
+nmap <F5> :redraw!<CR>
 
 call plug#begin('~/.vim/plugged')
     Plug 'tpope/vim-sensible'
