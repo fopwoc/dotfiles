@@ -7,7 +7,7 @@ OS=$(uname -s)
 case $OS in
   Darwin)
     #deps and cool utils on macos
-    brew install exa ripgrep fd git-delta bat tealdeer zoxide starship fzf vim fortune cowsay htop tmux httpie ncdu
+    brew install exa ripgrep fd git-delta bat tealdeer zoxide starship fzf nvim fortune cowsay htop tmux httpie ncdu
     ;;
 
   Linux)
@@ -52,6 +52,12 @@ fi
 if [[ ! -L "$HOME/.config/nvim/init.vim" ]]; then
   echo "symlink nvim"
   ln -fs $(pwd)/nvim $HOME/.config/nvim
+fi
+
+#symlink tmux.conf
+if [[ ! -L "$HOME/.tmux.conf" ]]; then
+  echo "symlink tmux"
+  ln -fs $(pwd)/.tmux.conf $HOME/.tmux.conf
 fi
 
 #symlink wezterm

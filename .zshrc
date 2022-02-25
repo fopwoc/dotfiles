@@ -98,6 +98,9 @@ alias :wq!='exit'
 alias claer='clear'
 
 alias yolo='git commit -m "$(curl -s http://whatthecommit.com/index.txt)"'
+alias myip='ip route get 1.2.3.4 | awk {print $7}'
+
+alias vim='$(which nvim &> /dev/zero && which nvim || which vi)'
 
 export CHROME_EXECUTABLE=/usr/bin/google-chrome
 
@@ -110,8 +113,8 @@ export PATH=/opt/flutter/bin:$PATH
 export PATH=/opt/jdk/bin:$PATH
 export PATH=/opt/jetbrains-toolbox/:$PATH
 
-export EDITOR=/usr/bin/vim
-export VISUAL=/usr/bin/vim
+export EDITOR=$(which nvim &> /dev/zero && which nvim || which vi)
+export VISUAL=$(which nvim &> /dev/zero && which nvim || which vi)
 #export NODE_OPTIONS=--openssl-legacy-provider
 
 export _ZO_ECHO=1
