@@ -44,23 +44,48 @@ nnoremap <Down> gj
 nmap <F12> :so $MYVIMRC<CR>
 nmap <F5> :redraw!<CR>
 
-call plug#begin('~/.vim/plugged')
-    Plug 'tpope/vim-sensible'
-    Plug 'sheerun/vim-polyglot'
-    Plug 'bratpeki/truedark-vim'
-    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-    Plug 'junegunn/fzf.vim'
-    Plug 'mhinz/vim-signify'
-    Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-call plug#end()
+if !has('nvim')
+    call plug#begin('~/.vim/plugged')
+        Plug 'tpope/vim-sensible'
+        Plug 'sheerun/vim-polyglot'
+        Plug 'bratpeki/truedark-vim'
+        Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+        Plug 'junegunn/fzf.vim'
+        Plug 'mhinz/vim-signify'
+        Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+    call plug#end()
+    
+    let g:plug_window = "new"
+    
+    let g:fzf_preview_window = 'right:75%'
+    let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6  }  }
+    
+    set updatetime=100
+    
+    colorscheme truedark
+    
+    let g:vim_markdown_strikethrough = 1
+endif
 
-let g:plug_window = "new"
-
-let g:fzf_preview_window = 'right:75%'
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6  }  }
-
-set updatetime=100
-
-colorscheme truedark
-
-let g:vim_markdown_strikethrough = 1
+if has('nvim')
+    call plug#begin('~/.vim/plugged')
+        Plug 'tpope/vim-sensible'
+        Plug 'sheerun/vim-polyglot'
+        Plug 'bratpeki/truedark-vim'
+        Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+        Plug 'junegunn/fzf.vim'
+        Plug 'mhinz/vim-signify'
+        Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+    call plug#end()
+    
+    let g:plug_window = "new"
+    
+    let g:fzf_preview_window = 'right:75%'
+    let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6  }  }
+    
+    set updatetime=100
+    
+    colorscheme truedark
+    
+    let g:vim_markdown_strikethrough = 1
+endif
