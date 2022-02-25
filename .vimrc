@@ -70,11 +70,14 @@ endif
 if has('nvim')
     call plug#begin('~/.vim/plugged')
         Plug 'tpope/vim-sensible'
-        Plug 'sheerun/vim-polyglot'
+        Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+        Plug 'lewis6991/spellsitter.nvim'
         Plug 'bratpeki/truedark-vim'
         Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
         Plug 'junegunn/fzf.vim'
         Plug 'mhinz/vim-signify'
+        Plug 'f-person/git-blame.nvim'
+        Plug 'michaelb/sniprun', {'do': 'bash install.sh'}
         Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
     call plug#end()
     
@@ -88,4 +91,9 @@ if has('nvim')
     colorscheme truedark
     
     let g:vim_markdown_strikethrough = 1
+
+lua <<EOF
+require('spellsitter').setup()
+EOF
+
 endif
