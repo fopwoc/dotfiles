@@ -115,6 +115,9 @@ if [[ ! -f "$HOME/.vim/autoload/plug.vim" ]]; then
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 
+#symlink nvim exec
+which nvim &> /dev/zero && ln -s $(which nvim) ~/.local/bin/vim
+
 #update vim plugins
 vim -E -s -u $HOME/.vimrc +PlugInstall +qall
 

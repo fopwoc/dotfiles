@@ -46,7 +46,7 @@ FZF_PREVIEW='less ${(Q)realpath}'
 
 zstyle ':completion::complete:*' use-cache 1
 
-zstyle ':fzf-tab:complete:(vim|cat):argument-rest' fzf-preview $FZF_PREVIEW
+zstyle ':fzf-tab:complete:(cat|bat|vim|nvim):argument-rest' fzf-preview $FZF_PREVIEW
 zstyle ':fzf-tab:complete:*:argument-rest' fzf-flags $(echo $FZF_FLAGS)
 
 zstyle ':fzf-tab:complete:(cd|j):*' fzf-preview $FZF_PREVIEW
@@ -100,7 +100,7 @@ alias claer='clear'
 alias yolo='git commit -m "$(curl -s http://whatthecommit.com/index.txt)"'
 alias myip='ip route get 1.2.3.4 | awk {print $7}'
 
-alias vim='$(which nvim &> /dev/zero && which nvim || which vi)'
+#alias vim='$(which nvim &> /dev/zero && which nvim || which vi)'
 
 export CHROME_EXECUTABLE=/usr/bin/google-chrome
 

@@ -76,7 +76,6 @@ if has('nvim')
         Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
         Plug 'junegunn/fzf.vim'
         Plug 'mhinz/vim-signify'
-        Plug 'f-person/git-blame.nvim'
         Plug 'michaelb/sniprun', {'do': 'bash install.sh'}
         Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
     call plug#end()
@@ -89,7 +88,7 @@ if has('nvim')
     set updatetime=100
     
     colorscheme truedark
-    
+
     let g:vim_markdown_strikethrough = 1
 
 lua <<EOF
