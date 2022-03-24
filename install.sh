@@ -61,7 +61,7 @@ if [[ ! -L "$HOME/.tmux.conf" ]]; then
 fi
 
 #symlink wezterm
-if [[ ! -L "$HOME/.config/wezterm/wezterm.lua" ]]; then
+if [[ ! -L "$HOME/.config/wezterm" ]]; then
   echo "symlink wezterm"
   ln -fs $(pwd)/wezterm $HOME/.config/wezterm
 fi
