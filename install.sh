@@ -16,7 +16,7 @@ case $OS in
     #deps and utils for ubuntu
     if [[ $distro == *"Ubuntu"* ]]; then
       sudo apt -y install fzf vim fortune cowsay htop tmux ncdu pip libncurses5-dev
-      sudo snap install rustup --classic && rustup update stable && cargo install exa fd-find ripgrep git-delta bat tealdeer zoxide starship
+      curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && rustup update stable && cargo install exa fd-find ripgrep git-delta bat tealdeer zoxide starship
       pip install tldr httpie
     else
       echo "Unknown distro! I cant install deps and utils..."
