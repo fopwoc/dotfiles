@@ -11,14 +11,15 @@ for i = 1, 8 do
 end
 
 return {
-  font = wezterm.font("JetBrains Mono"),
+  colors = {
+      background = "#012456",
+  },
+  window_background_opacity = 1.0,
+  text_background_opacity = 1.0,
+  font = wezterm.font("JetBrains Mono", {weight="Bold"}),
   enable_scroll_bar=true,
   hide_tab_bar_if_only_one_tab = true,
   enable_wayland = true,
   font_antialias = "Subpixel",
   keys = mykeys,
---  keys = {
---    {key="w", mods="CMD", action=CloseCurrentTab{confirm=true}},
---    {key="w", mods="CMD", action={SpawnTab="CurrentPaneDomain"}},
---  }
 }
