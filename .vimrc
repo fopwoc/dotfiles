@@ -65,6 +65,7 @@ set updatetime=100
 colorscheme truedark
 
 let g:vim_markdown_strikethrough = 1
+hi Normal guibg=NONE ctermbg=NONE
 
 if has('nvim')
 lua <<EOF
