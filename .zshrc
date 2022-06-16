@@ -80,6 +80,8 @@ alias lx='exa -lbhHigUmuSa@ --time-style=long-iso --git --color-scale'
 alias ty='echo "ur welcome"'
 alias please='sudo'
 
+alias open='xdg-open'
+
 alias :q='exit'
 alias :q!='exit'
 alias :wq='exit'
@@ -90,16 +92,10 @@ alias claer='clear'
 alias yolo='git commit -m "$(curl -s http://whatthecommit.com/index.txt)"'
 alias myip='ip route get 1.2.3.4 | awk {print $7}'
 
-export CHROME_EXECUTABLE=/usr/bin/google-chrome
-
+export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/.pub-cache/bin:$PATH
-
-export PATH=/opt/android-studio/bin:$PATH
-export PATH=/opt/flutter/bin:$PATH
-export PATH=/opt/jdk/bin:$PATH
-export PATH=/opt/jetbrains-toolbox/:$PATH
 
 export EDITOR=$(which nvim &> /dev/zero && which nvim || which vi)
 export VISUAL=$(which nvim &> /dev/zero && which nvim || which vi)
@@ -112,7 +108,32 @@ eval "$(starship init zsh)"
 eval "$(zoxide init zsh --cmd cd)"
 alias j='cd'
 
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
+#define system
+OS=$(uname -s)
+case $OS in
+  Darwin)
+    ;;
+
+  Linux)
+	export CHROME_EXECUTABLE=/usr/bin/google-chrome-stable
+
+	export PATH=/usr/lib/docker/cli-plugins:$PATH
+	
+	export PATH=/opt/android-studio/bin:$PATH
+	export PATH=/opt/flutter/bin:$PATH
+	export PATH=/opt/jdk/bin:$PATH
+	export PATH=/opt/jetbrains-toolbox/:$PATH
+
+	[ -z "$NVM_DIR" ] && export NVM_DIR="$HOME/.nvm"
+	source /usr/share/nvm/nvm.sh
+	source /usr/share/nvm/bash_completion
+	source /usr/share/nvm/install-nvm-exec
+    ;;
+
+  *)
+    echo "unknown operation system $OS"
+    ;;
+esac
 
 fortune | cowsay -d -p

@@ -1,5 +1,5 @@
 #!/bin/bash
-
+set -x
 
 #define system
 OS=$(uname -s)
@@ -19,7 +19,11 @@ case $OS in
       curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && rustup update stable && cargo install exa fd-find ripgrep git-delta bat tealdeer zoxide starship
       pip install tldr httpie
     else
-      echo "Unknown distro! I cant install deps and utils..."
+      if which pacman &> /dev/null; then 
+        sudo pacman -Syu exa ripgrep fd git-delta bat tealdeer zoxide starship fzf neovim fortune-mod cowsay htop tmux httpie ncdu
+      else
+        echo "Unknown distro! I cant install deps and utils..."
+      fi
     fi
     ;;
 
@@ -116,7 +120,8 @@ if [[ ! -f "$HOME/.vim/autoload/plug.vim" ]]; then
 fi
 
 #symlink nvim exec
-which nvim &> /dev/zero && ln -s $(which nvim) ~/.local/bin/vim
+which nvim &> /dev/null && ln -s $(which nvim) ~/.local/bin/vim
+which wezterm &> /dev/null && ln -s $(which wezterm) ~/.local/bin/gnome-terminal
 
 #update vim plugins
 vim -E -s -u $HOME/.vimrc +PlugInstall +qall
