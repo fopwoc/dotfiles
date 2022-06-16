@@ -7,7 +7,7 @@ OS=$(uname -s)
 case $OS in
   Darwin)
     #deps and cool utils on macos
-    brew install exa ripgrep fd git-delta bat tealdeer zoxide starship fzf nvim fortune cowsay htop tmux httpie ncdu
+    brew install exa ripgrep fd git-delta bat tealdeer zoxide starship fzf nvim fortune cowsay htop tmux httpie ncdu neovim
     ;;
 
   Linux)
