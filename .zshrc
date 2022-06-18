@@ -136,4 +136,5 @@ case $OS in
     ;;
 esac
 
+export GPG_TTY=$(tty)
 fortune | cowsay -d -p
