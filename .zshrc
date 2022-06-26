@@ -80,8 +80,6 @@ alias lx='exa -lbhHigUmuSa@ --time-style=long-iso --git --color-scale'
 alias ty='echo "ur welcome"'
 alias please='sudo'
 
-alias open='xdg-open'
-
 alias :q='exit'
 alias :q!='exit'
 alias :wq='exit'
@@ -125,10 +123,12 @@ case $OS in
 	export PATH=/opt/jdk/bin:$PATH
 	export PATH=/opt/jetbrains-toolbox/:$PATH
 
+	alias open='xdg-open'
+
 	[ -z "$NVM_DIR" ] && export NVM_DIR="$HOME/.nvm"
-	source /usr/share/nvm/nvm.sh
-	source /usr/share/nvm/bash_completion
-	source /usr/share/nvm/install-nvm-exec
+		source /usr/share/nvm/nvm.sh
+		source /usr/share/nvm/bash_completion
+		source /usr/share/nvm/install-nvm-exec
     ;;
 
   *)
