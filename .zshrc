@@ -111,6 +111,7 @@ alias j='cd'
 OS=$(uname -s)
 case $OS in
   Darwin)
+	export PATH=/opt/flutter/bin:$PATH
     ;;
 
   Linux)
