@@ -7,7 +7,7 @@ OS=$(uname -s)
 case $OS in
   Darwin)
     #deps and cool utils on macos
-    brew install exa ripgrep fd git-delta bat tealdeer zoxide starship fzf nvim fortune cowsay htop tmux httpie ncdu neovim
+    brew install exa ripgrep fd git-delta bat tealdeer zoxide starship fzf fortune cowsay htop tmux httpie ncdu git gnupg pinentry-mac ffmpeg nrlquaker-winbox mitmproxy keycastr youtube-dl zsh cocoapods node
     ;;
 
   Linux)
@@ -130,4 +130,4 @@ vim -E -s -u $HOME/.vimrc +PlugInstall +qall
 tldr --update
 
 #run zsh and build fzf color binary
-exec /bin/zsh -c "source ~/.zshrc && build-fzf-tab-module && clear && reset && echo \"have a nice time!!!\""
+exec /bin/zsh -c "source ~/.zshrc && clear && reset && echo \"have a nice time!!!\""
