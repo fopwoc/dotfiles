@@ -27,9 +27,9 @@ map Ж :
 
 set rtp+=/usr/local/opt/fzf
 
-if (has("termguicolors"))
-    set termguicolors
-endif
+"if (has("termguicolors"))
+"    set termguicolors
+"endif
 
 let &scrolloff = &lines / 4
 autocmd VimEnter,WinEnter * let &scrolloff = winheight(0) / 4

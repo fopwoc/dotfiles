@@ -106,6 +106,8 @@ eval "$(starship init zsh)"
 eval "$(zoxide init zsh --cmd cd)"
 alias j='cd'
 
+export LC_ALL="ru_RU.UTF-8"
+export LANGUAGE="ru_RU.UTF-8"
 
 #define system
 OS=$(uname -s)
@@ -125,11 +127,6 @@ case $OS in
 	export PATH=/opt/jetbrains-toolbox/:$PATH
 
 	alias open='xdg-open'
-
-	[ -z "$NVM_DIR" ] && export NVM_DIR="$HOME/.nvm"
-		source /usr/share/nvm/nvm.sh
-		source /usr/share/nvm/bash_completion
-		source /usr/share/nvm/install-nvm-exec
     ;;
 
   *)
