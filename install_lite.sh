@@ -60,3 +60,4 @@ fi
 #update vim plugins
 vim -E -s -u $HOME/.vimrc +PlugInstall +qall
 
+exit 0
