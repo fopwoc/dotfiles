@@ -51,12 +51,7 @@ alias claer='clear'
 
 export PATH=$HOME/.local/bin:$PATH
 
-export _ZO_ECHO=1
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-eval "$(zoxide init zsh --cmd cd)"
-alias j='cd'
 
 export GPG_TTY=$(tty)
 fortune | cowsay -d -p
