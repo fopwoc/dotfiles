@@ -1,34 +1,6 @@
 #!/bin/bash
 set -x
 
-#define system
-OS=$(uname -s)
-
-case $OS in
-  Darwin)
-    #deps and cool utils on macos
-    echo "ughh... lite config on mac????"
-    exit 1
-    ;;
-
-  Linux)
-    distro=$(uname -v)
-
-    #deps and utils for ubuntu
-    if [[ $distro == *"Ubuntu"* ]]; then
-      sudo apt -y install fzf vim fortune cowsay htop tmux ncdu libncurses5-dev
-      curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && rustup update stable && cargo install exa fd-find ripgrep zoxide
-    else
-      echo "Unknown distro! I cant install deps and utils..."
-    fi
-    ;;
-
-  *)
-    echo "unknown operation system $OS"
-    exit 1
-    ;;
-esac
-
 #install oh-my-zsh
 if [[ ! -d "$HOME/.oh-my-zsh/" ]]; then
   RUNZSH=no sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --keep-zshrc
