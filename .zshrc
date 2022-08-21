@@ -25,7 +25,6 @@ sudo
 )
 
 source $ZSH/oh-my-zsh.sh
-export LANG=ru_RU.UTF-8
 
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 autoload -U compinit promptinit
@@ -105,9 +104,6 @@ export _ZO_ECHO=1
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh --cmd cd)"
 alias j='cd'
-
-export LC_ALL="ru_RU.UTF-8"
-export LANGUAGE="ru_RU.UTF-8"
 
 #define system
 OS=$(uname -s)
