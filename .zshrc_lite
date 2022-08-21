@@ -1,0 +1,74 @@
+ZSH_DISABLE_COMPFIX=true
+
+export ZSH="$HOME/.oh-my-zsh"
+
+ZSH_THEME="tjkirch"
+
+export UPDATE_ZSH_DAYS=7
+
+# Uncomment the following line to enable command auto-correction.
+#ENABLE_CORRECTION="true"
+
+COMPLETION_WAITING_DOTS="true"
+
+plugins=(
+zsh-autosuggestions
+command-not-found
+autoupdate
+fzf-tab
+docker
+fzf
+git
+ssh
+sudo
+)
+
+source $ZSH/oh-my-zsh.sh
+export LANG=ru_RU.UTF-8
+
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+autoload -U compinit promptinit
+compinit -C
+
+HISTFILE=~/.zsh_history
+HISTSIZE=999999999
+SAVEHIST=$HISTSIZE
+
+alias ls='exa'
+alias l='exa -la --group-directories-first'
+alias lg='l --git'
+alias lt='l --tree --level 2'
+alias lst='exa --tree --level 2'
+alias ll='exa -lbGF --git'
+alias llm='exa -lbGd --git --sort=modified'
+alias lx='exa -lbhHigUmuSa@ --time-style=long-iso --git --color-scale'
+
+alias ty='echo "ur welcome"'
+alias please='sudo'
+
+alias :q='exit'
+alias :q!='exit'
+alias :wq='exit'
+alias :wq!='exit'
+
+alias claer='clear'
+
+
+export PATH=$HOME/.local/bin:$PATH
+export PATH=$HOME/.cargo/bin:$PATH
+
+export EDITOR=$(which nvim &> /dev/zero && which nvim || which vi)
+export VISUAL=$(which nvim &> /dev/zero && which nvim || which vi)
+
+export _ZO_ECHO=1
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+eval "$(zoxide init zsh --cmd cd)"
+alias j='cd'
+
+export LC_ALL="ru_RU.UTF-8"
+export LANGUAGE="ru_RU.UTF-8"
+
+export GPG_TTY=$(tty)
+fortune | cowsay -d -p
