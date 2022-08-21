@@ -20,12 +20,6 @@ if [[ ! -L "$HOME/.vimrc" ]]; then
   ln -s $(pwd)/.vimrc $HOME/.vimrc
 fi
 
-#symlink nvimrc
-if [[ ! -L "$HOME/.config/nvim/init.vim" ]]; then
-  echo "symlink nvim"
-  ln -fs $(pwd)/nvim $HOME/.config/nvim
-fi
-
 #symlink tmux.conf
 if [[ ! -L "$HOME/.tmux.conf" ]]; then
   echo "symlink tmux"
@@ -63,12 +57,6 @@ if [[ ! -f "$HOME/.vim/autoload/plug.vim" ]]; then
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 
-#symlink nvim exec
-which nvim &> /dev/null && ln -s $(which nvim) ~/.local/bin/vim
-which wezterm &> /dev/null && ln -s $(which wezterm) ~/.local/bin/gnome-terminal
-
 #update vim plugins
 vim -E -s -u $HOME/.vimrc +PlugInstall +qall
 
-#run zsh and build fzf color binary
-exec /bin/zsh -c "source ~/.zshrc && clear && reset && echo \"have a nice time!!!\""

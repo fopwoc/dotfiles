@@ -51,10 +51,6 @@ alias :wq!='exit'
 alias claer='clear'
 
 export PATH=$HOME/.local/bin:$PATH
-export PATH=$HOME/.cargo/bin:$PATH
-
-export EDITOR=$(which nvim &> /dev/zero && which nvim || which vi)
-export VISUAL=$(which nvim &> /dev/zero && which nvim || which vi)
 
 export _ZO_ECHO=1
 
