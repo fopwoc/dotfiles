@@ -113,6 +113,7 @@ OS=$(uname -s)
 case $OS in
   Darwin)
 	export PATH=/opt/flutter/bin:$PATH
+	export PATH=$HOME/Library/Application\ Support/JetBrains/Toolbox/scripts:$PATH
     ;;
 
   Linux)
