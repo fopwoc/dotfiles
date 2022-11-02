@@ -27,6 +27,9 @@ git
 sudo
 )
 
+FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+
 source $ZSH/oh-my-zsh.sh
 
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
@@ -114,7 +117,9 @@ case $OS in
   Darwin)
 	export PATH=/opt/flutter/bin:$PATH
 	export PATH=$HOME/Library/Application\ Support/JetBrains/Toolbox/scripts:$PATH
-    ;;
+    export CPPFLAGS="-I/opt/homebrew/opt/openjdk@17/include"
+	export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
+	;;
 
   Linux)
 	export CHROME_EXECUTABLE=/usr/bin/google-chrome-stable

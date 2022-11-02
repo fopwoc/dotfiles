@@ -21,6 +21,9 @@ set expandtab
 syntax enable
 filetype plugin indent on
 
+set spell spelllang=ru_ru,en_us
+set nospell
+
 "КОСТЫЛИ ЖУТКИЕ, как сядешь за мак настрой просто переключение языка в iterm
 set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
 map Ж :
