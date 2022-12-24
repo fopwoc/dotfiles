@@ -96,8 +96,6 @@ alias yolo='git commit -m "$(curl -s http://whatthecommit.com/index.txt)"'
 alias myip='ip route get 1.2.3.4 | awk {print $7}'
 
 export PATH=$HOME/.local/bin:$PATH
-export PATH=$HOME/.cargo/bin:$PATH
-export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/.pub-cache/bin:$PATH
 
 export EDITOR=$(which nvim &> /dev/zero && which nvim || which vi)
@@ -115,10 +113,12 @@ alias j='cd'
 OS=$(uname -s)
 case $OS in
   Darwin)
+	export PATH="/opt/homebrew/opt/unzip/bin:$PATH"
 	export PATH=/opt/flutter/bin:$PATH
 	export PATH=$HOME/Library/Application\ Support/JetBrains/Toolbox/scripts:$PATH
+	export PATH=$HOME/Library/Android/sdk/platform-tools:$PATH
     export CPPFLAGS="-I/opt/homebrew/opt/openjdk@17/include"
-	export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
+	#export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
 	;;
 
   Linux)
