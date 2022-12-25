@@ -86,7 +86,7 @@ alias :wq!='exit'
 
 alias claer='clear'
 
-alias yolo='git commit -m "$(curl -s http://whatthecommit.com/index.txt)"'
+alias yolo='git commit -m "$(curl --silent --fail https://whatthecommit.com/index.txt)"'
 
 export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/.pub-cache/bin:$PATH
