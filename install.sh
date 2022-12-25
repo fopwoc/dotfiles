@@ -7,7 +7,8 @@ OS=$(uname -s)
 case $OS in
   Darwin)
     #deps and cool utils on macos
-    brew install exa fd git-delta bat tealdeer zoxide starship fzf fortune cowsay htop tmux ncdu git gnupg pinentry-mac ffmpeg mitmproxy keycastr youtube-dl zsh cocoapods node yarn zsh-completions
+    brew install exa fd git-delta bat tealdeer zoxide starship fzf fortune cowsay htop tmux ncdu git gnupg pinentry-mac ffmpeg mitmproxy keycastr youtube-dl zsh cocoapods node yarn zsh-completions ripgrep kotlin-language-server
+    npm install -g typescript-language-server
     ;;
 
   Linux)
@@ -124,7 +125,7 @@ which nvim &> /dev/null && ln -s $(which nvim) ~/.local/bin/vim
 which wezterm &> /dev/null && ln -s $(which wezterm) ~/.local/bin/gnome-terminal
 
 #update vim plugins
-vim -E -s -u $HOME/.vimrc +PlugInstall +qall
+#vim -E -s -u $HOME/.vimrc +PlugInstall +qall
 
 #update tldr
 tldr --update

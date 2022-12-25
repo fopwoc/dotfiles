@@ -4,27 +4,21 @@ LC_CTYPE=en_US.UTF-8
 LC_ALL=en_US.UTF-8
 
 export ZSH="$HOME/.oh-my-zsh"
-
 ZSH_THEME="tjkirch"
-
 export UPDATE_ZSH_DAYS=7
-
-# Uncomment the following line to enable command auto-correction.
-#ENABLE_CORRECTION="true"
-
 COMPLETION_WAITING_DOTS="true"
 
 plugins=(
-fast-syntax-highlighting
-zsh-autosuggestions
-command-not-found
-autoupdate
-fzf-tab
-docker
-fzf
-ssh
-git
-sudo
+	fast-syntax-highlighting
+	zsh-autosuggestions
+	command-not-found
+	autoupdate
+	fzf-tab
+	docker
+	fzf
+	ssh
+	git
+	sudo
 )
 
 FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
@@ -93,7 +87,6 @@ alias :wq!='exit'
 alias claer='clear'
 
 alias yolo='git commit -m "$(curl -s http://whatthecommit.com/index.txt)"'
-alias myip='ip route get 1.2.3.4 | awk {print $7}'
 
 export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/.pub-cache/bin:$PATH
@@ -103,22 +96,21 @@ export VISUAL=$(which nvim &> /dev/zero && which nvim || which vi)
 
 export _ZO_ECHO=1
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh --cmd cd)"
 alias j='cd'
 
+export TERM="xterm-256color"
+
 #define system
 OS=$(uname -s)
 case $OS in
+
   Darwin)
 	export PATH="/opt/homebrew/opt/unzip/bin:$PATH"
 	export PATH=/opt/flutter/bin:$PATH
 	export PATH=$HOME/Library/Application\ Support/JetBrains/Toolbox/scripts:$PATH
 	export PATH=$HOME/Library/Android/sdk/platform-tools:$PATH
-    export CPPFLAGS="-I/opt/homebrew/opt/openjdk@17/include"
-	#export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
 	;;
 
   Linux)
