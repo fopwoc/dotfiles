@@ -90,6 +90,7 @@ alias yolo='git commit -m "$(curl --silent --fail https://whatthecommit.com/inde
 
 export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/.pub-cache/bin:$PATH
+export PATH=$HOME/.dotnet/tools:$PATH
 
 export EDITOR=$(which nvim &> /dev/zero && which nvim || which vi)
 export VISUAL=$(which nvim &> /dev/zero && which nvim || which vi)
@@ -100,7 +101,7 @@ eval "$(starship init zsh)"
 eval "$(zoxide init zsh --cmd cd)"
 alias j='cd'
 
-export TERM="xterm-256color"
+#export TERM="xterm-256color"
 
 #define system
 OS=$(uname -s)
@@ -133,3 +134,6 @@ esac
 
 export GPG_TTY=$(tty)
 fortune | cowsay -d -p
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+

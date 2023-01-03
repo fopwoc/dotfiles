@@ -24,6 +24,12 @@ filetype plugin indent on
 set spell spelllang=ru_ru,en_us
 set nospell
 
+autocmd BufEnter *.dart :setlocal tabstop=2 shiftwidth=2 expandtab cc=80
+autocmd BufEnter *.yaml :setlocal tabstop=2 shiftwidth=2 expandtab
+autocmd BufEnter *.yml :setlocal tabstop=2 shiftwidth=2 expandtab
+
+hi ColorColumn ctermbg=235 guibg=#303030
+
 "КОСТЫЛИ ЖУТКИЕ, как сядешь за мак настрой просто переключение языка в iterm
 set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
 map Ж :
@@ -35,8 +41,9 @@ if &term =~ '256color'
     set t_ut=
 endif
 
-"nnoremap <Up> gk
-"nnoremap <Down> gj
+if (has("termguicolors"))
+    set termguicolors
+endif
 
 if !has ('nvim')
     call plug#begin('~/.vim/plugged')
@@ -76,19 +83,35 @@ lua <<EOF
     vim.opt.runtimepath:prepend(lazypath)
     
     vim.g.mapleader = " "
-
+    
     require("lazy").setup({
-        { 
-            "bratpeki/truedark-vim",
+        --LSP and autocomplete
+        {
+            "neovim/nvim-lspconfig",
+            dependencies = {
+                "lukas-reineke/lsp-format.nvim",
+            },
             config = function()
-                vim.cmd("colorscheme truedark")
-            end,
-        },
-        { 
-            "ms-jpq/chadtree",
-            branch = "chad",
-            build = function()
-                vim.cmd("CHADdeps")
+                local on_attach = function(client)
+                    require("lsp-format").on_attach(client)
+                end
+
+                require("lsp-format").setup {}
+
+                require("lspconfig")["tsserver"].setup{
+                    on_attach = on_attach,
+                    flags = lsp_flags,
+                }
+                require("lspconfig")["kotlin_language_server"].setup{
+                    on_attach = on_attach
+                }
+                require("lspconfig")["dartls"].setup{
+                    on_attach = on_attach
+                }
+
+                require'lspconfig'.csharp_ls.setup{
+                    on_attach = on_attach
+                }
             end,
         },
         {
@@ -97,23 +120,13 @@ lua <<EOF
             build = function()
                 vim.cmd("COQdeps")
             end,
+            config = function()
+                vim.cmd("COQnow --shut-up")
+            end,
         },
         {
             "ms-jpq/coq.artifacts",
             branch = "artifacts",
-        },
-        {
-            "neovim/nvim-lspconfig",
-            config = function()
-                require("lspconfig")["tsserver"].setup{
-                    on_attach = on_attach,
-                    flags = lsp_flags,
-                }
-                require("lspconfig")["kotlin_language_server"].setup{
-                }
-                require("lspconfig")["dartls"].setup{
-                }
-            end,
         },
         {
             "nvim-treesitter/nvim-treesitter",
@@ -135,75 +148,73 @@ lua <<EOF
             end,
         },
         {
-            "iamcco/markdown-preview.nvim",
-            build = function()
-                vim.cmd("call mkdp#util#install()")
-            end,
-        },
-        {
-            "nvim-tree/nvim-web-devicons",
-        },
-        {
-            "akinsho/bufferline.nvim",
-            tag = "v3.0.0",
+            "folke/trouble.nvim",
             dependencies = {
                 "nvim-tree/nvim-web-devicons",
             },
             config = function()
-                require("bufferline").setup{
-                    options = {
-                        diagnostics = "nvim_lsp"
+                require("trouble").setup {}
+                vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>",{silent = true, noremap = true})
+            end,
+        },
+        {
+            "lukas-reineke/lsp-format.nvim",
+            config = function()
+                require("lsp-format").setup {
+                    dart = {
+                        sync = true,
                     }
                 }
             end,
         },
-        {
-            "feline-nvim/feline.nvim",
-            config = function()
-                require("feline").setup{
-                }
-            end,
-        },
-        {
-            "j-hui/fidget.nvim",
-            config = function()
-                require("fidget").setup{}
-            end,
-        },
+
+        --git
         {
             "lewis6991/gitsigns.nvim",
             config = function()
-               require("gitsigns").setup() 
-            end,
-        },
-        {
-            "lukas-reineke/indent-blankline.nvim",
-            config = function()
-                require("indent_blankline").setup {
-                    show_current_context = true,
-                    show_current_context_start = true,
-                    space_char_blankline = " ",
+                require("gitsigns").setup{
+                    current_line_blame = true,
+                    current_line_blame_opts = {
+                        virt_text = true,
+                        virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
+                        delay = 1000,
+                        ignore_whitespace = false,
+                    },
+                    current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
+                    on_attach = function(bufnr)
+				    local function map(mode, lhs, rhs, opts)
+				        opts = vim.tbl_extend('force', {noremap = true, silent = true}, opts or {})
+				        vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
+				    end
+				
+				    -- Navigation
+				    map('n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", {expr=true})
+				    map('n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", {expr=true})
+				
+				    -- Actions
+				    map('n', '<leader>hs', ':Gitsigns stage_hunk<CR>')
+				    map('v', '<leader>hs', ':Gitsigns stage_hunk<CR>')
+				    map('n', '<leader>hr', ':Gitsigns reset_hunk<CR>')
+				    map('v', '<leader>hr', ':Gitsigns reset_hunk<CR>')
+				    map('n', '<leader>hS', '<cmd>Gitsigns stage_buffer<CR>')
+				    map('n', '<leader>hu', '<cmd>Gitsigns undo_stage_hunk<CR>')
+				    map('n', '<leader>hR', '<cmd>Gitsigns reset_buffer<CR>')
+				    map('n', '<leader>hp', '<cmd>Gitsigns preview_hunk<CR>')
+				    map('n', '<leader>hb', '<cmd>lua require"gitsigns".blame_line{full=true}<CR>')
+				    map('n', '<leader>tb', '<cmd>Gitsigns toggle_current_line_blame<CR>')
+				    map('n', '<leader>hd', '<cmd>Gitsigns diffthis<CR>')
+				    map('n', '<leader>hD', '<cmd>lua require"gitsigns".diffthis("~")<CR>')
+				    map('n', '<leader>td', '<cmd>Gitsigns toggle_deleted<CR>')
+				
+				    -- Text object
+				    map('o', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+				    map('x', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+				  end
                 }
             end,
         },
-        {
-            "folke/trouble.nvim",
-            dependencies = {                           
-                "nvim-tree/nvim-web-devicons",
-            },
-            config = function()
-                require("trouble").setup {}
-            end,
-        },
-        {
-            "folke/which-key.nvim",
-            config = function()
-                require("which-key").setup {}
-            end,
-        },
-        {
-            "nvim-lua/plenary.nvim",
-        },
+
+        --search
         {
             "nvim-telescope/telescope.nvim",
             tag = "0.1.0",
@@ -216,19 +227,156 @@ lua <<EOF
                 vim.api.nvim_set_keymap("n", "<Leader>fg", [[<cmd>lua require('telescope.builtin').live_grep()<cr>]], { noremap = true})
             end,
         },
+
+        --theme and visuals
+        { 
+            "bratpeki/truedark-vim",
+            config = function()
+                vim.cmd("colorscheme truedark")
+            end,
+        },
+        {
+            "tjdevries/express_line.nvim",
+            dependencies = {
+                "nvim-lua/plenary.nvim",
+            },
+            config = function()
+                require("el").setup()
+            end,
+        },
+        
+
+        --quality of life
+        { 
+            "ms-jpq/chadtree",
+            enabled = false,
+            branch = "chad",
+            build = function()
+                vim.cmd("CHADdeps")
+            end,
+            config = function()
+                vim.api.nvim_set_keymap("n", "<leader>v", [[<cmd>CHADopen<cr>]], { noremap = true})
+                vim.api.nvim_set_keymap("n", "<leader>l", [[<cmd>call setqflist([])<cr>]], { noremap = true})
+            end,
+        },
+        {
+            "iamcco/markdown-preview.nvim",
+            build = function()
+                vim.cmd("call mkdp#util#install()")
+            end,
+        },
+        {
+            "j-hui/fidget.nvim",
+            config = function()
+                require("fidget").setup{}
+            end,
+        },
+        {
+            "lukas-reineke/indent-blankline.nvim",
+            config = function()
+                vim.opt.list = true
+                vim.opt.listchars = { tab = '>~' }
+                require("indent_blankline").setup {
+                    space_char_blankline = " ",
+                    show_current_context = true,
+                    show_current_context_start = true,
+                }
+            end,
+        },
+        {
+            "gelguy/wilder.nvim",
+            enabled = false,
+            config = function()
+                local wilder = require('wilder')
+                wilder.setup({modes = {':'}})
+                wilder.set_option('renderer', wilder.renderer_mux({
+                    [':'] = wilder.popupmenu_renderer({
+                        highlighter = wilder.basic_highlighter(),
+                    }),
+                }))
+                wilder.set_option('renderer', wilder.popupmenu_renderer({
+                    pumblend = 20,
+                }))
+                wilder.set_option('renderer', wilder.popupmenu_renderer({
+                    highlighter = wilder.basic_highlighter(),
+                    left = {' ', wilder.popupmenu_devicons()},
+                    right = {' ', wilder.popupmenu_scrollbar()},
+                }))
+            end,
+        },
+        {
+            "gelguy/wilder.nvim",
+            enabled = true,
+            config = function()
+                local wilder = require('wilder')
+                wilder.setup({modes = {':'}})
+                wilder.set_option('renderer', wilder.popupmenu_renderer({
+                    pumblend = 0,
+                }))
+                wilder.set_option('renderer', wilder.popupmenu_renderer({
+                    highlighter = wilder.basic_highlighter(),
+                    left = {' ', wilder.popupmenu_devicons()},
+                    right = {' ', wilder.popupmenu_scrollbar()},
+                }))
+            end,
+        },
+        {
+            "windwp/nvim-autopairs",
+            enabled = true,
+            config = function()
+                local remap = vim.api.nvim_set_keymap
+                local npairs = require('nvim-autopairs')
+                
+                npairs.setup({ map_bs = false, map_cr = false })
+                
+                vim.g.coq_settings = { keymap = { recommended = false } }
+                
+                -- these mappings are coq recommended mappings unrelated to nvim-autopairs
+                remap('i', '<esc>', [[pumvisible() ? "<c-e><esc>" : "<esc>"]], { expr = true, noremap = true })
+                remap('i', '<c-c>', [[pumvisible() ? "<c-e><c-c>" : "<c-c>"]], { expr = true, noremap = true })
+                remap('i', '<tab>', [[pumvisible() ? "<c-n>" : "<tab>"]], { expr = true, noremap = true })
+                remap('i', '<s-tab>', [[pumvisible() ? "<c-p>" : "<bs>"]], { expr = true, noremap = true })
+                
+                -- skip it, if you use another global object
+                _G.MUtils= {}
+                
+                MUtils.CR = function()
+                  if vim.fn.pumvisible() ~= 0 then
+                    if vim.fn.complete_info({ 'selected' }).selected ~= -1 then
+                      return npairs.esc('<c-y>')
+                    else
+                      return npairs.esc('<c-e>') .. npairs.autopairs_cr()
+                    end
+                  else
+                    return npairs.autopairs_cr()
+                  end
+                end
+                remap('i', '<cr>', 'v:lua.MUtils.CR()', { expr = true, noremap = true })
+                
+                MUtils.BS = function()
+                  if vim.fn.pumvisible() ~= 0 and vim.fn.complete_info({ 'mode' }).mode == 'eval' then
+                    return npairs.esc('<c-e>') .. npairs.autopairs_bs()
+                  else
+                    return npairs.autopairs_bs()
+                  end
+                end
+                remap('i', '<bs>', 'v:lua.MUtils.BS()', { expr = true, noremap = true })
+            end,
+        },
+
+        --utility
+        {
+            "nvim-tree/nvim-web-devicons",
+        },
+        {
+            "nvim-lua/plenary.nvim",
+        },
+        
+        --game
+        {
+            "ThePrimeagen/vim-be-good",
+        },
     })
 EOF
 endif
 
-if exists("g:neovide")
-    set guifont=JetBrainsMono\ Nerd\ Font:h13
-
-    let g:neovide_hide_mouse_when_typing = v:false
-
-    let g:neovide_refresh_rate = 60
-    let g:neovide_refresh_rate_idle = 5
-
-    let g:neovide_cursor_trail_size = 0.3
-
-    let g:neovide_cursor_antialiasing = v:false
-endif
