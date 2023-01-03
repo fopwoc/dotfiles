@@ -247,18 +247,6 @@ lua <<EOF
         
 
         --quality of life
-        { 
-            "ms-jpq/chadtree",
-            enabled = false,
-            branch = "chad",
-            build = function()
-                vim.cmd("CHADdeps")
-            end,
-            config = function()
-                vim.api.nvim_set_keymap("n", "<leader>v", [[<cmd>CHADopen<cr>]], { noremap = true})
-                vim.api.nvim_set_keymap("n", "<leader>l", [[<cmd>call setqflist([])<cr>]], { noremap = true})
-            end,
-        },
         {
             "iamcco/markdown-preview.nvim",
             build = function()
@@ -281,27 +269,6 @@ lua <<EOF
                     show_current_context = true,
                     show_current_context_start = true,
                 }
-            end,
-        },
-        {
-            "gelguy/wilder.nvim",
-            enabled = false,
-            config = function()
-                local wilder = require('wilder')
-                wilder.setup({modes = {':'}})
-                wilder.set_option('renderer', wilder.renderer_mux({
-                    [':'] = wilder.popupmenu_renderer({
-                        highlighter = wilder.basic_highlighter(),
-                    }),
-                }))
-                wilder.set_option('renderer', wilder.popupmenu_renderer({
-                    pumblend = 20,
-                }))
-                wilder.set_option('renderer', wilder.popupmenu_renderer({
-                    highlighter = wilder.basic_highlighter(),
-                    left = {' ', wilder.popupmenu_devicons()},
-                    right = {' ', wilder.popupmenu_scrollbar()},
-                }))
             end,
         },
         {
