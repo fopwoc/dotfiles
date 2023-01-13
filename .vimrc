@@ -24,11 +24,11 @@ filetype plugin indent on
 set spell spelllang=ru_ru,en_us
 set nospell
 
+colorscheme desert
+
 autocmd BufEnter *.dart :setlocal tabstop=2 shiftwidth=2 expandtab cc=80
 autocmd BufEnter *.yaml :setlocal tabstop=2 shiftwidth=2 expandtab
 autocmd BufEnter *.yml :setlocal tabstop=2 shiftwidth=2 expandtab
-
-hi ColorColumn ctermbg=235 guibg=#303030
 
 "КОСТЫЛИ ЖУТКИЕ, как сядешь за мак настрой просто переключение языка в iterm
 set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
@@ -37,19 +37,10 @@ map Ж :
 let &scrolloff = &lines / 4
 autocmd VimEnter,WinEnter * let &scrolloff = winheight(0) / 4
 
-if &term =~ '256color'
-    set t_ut=
-endif
-
-if (has("termguicolors"))
-    set termguicolors
-endif
-
 if !has ('nvim')
     call plug#begin('~/.vim/plugged')
         "Plug 'tpope/vim-sensible'
         Plug 'sheerun/vim-polyglot'
-        Plug 'bratpeki/truedark-vim'
         Plug 'mhinz/vim-signify'
         Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
     call plug#end()
@@ -60,9 +51,7 @@ if !has ('nvim')
     let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6  }  }
     
     set updatetime=100
-    
-    colorscheme truedark
-    
+   
     let g:vim_markdown_strikethrough = 1
 endif
 
@@ -108,10 +97,6 @@ lua <<EOF
                 require("lspconfig")["dartls"].setup{
                     on_attach = on_attach
                 }
-
-                require'lspconfig'.csharp_ls.setup{
-                    on_attach = on_attach
-                }
             end,
         },
         {
@@ -121,7 +106,6 @@ lua <<EOF
                 vim.cmd("COQdeps")
             end,
             config = function()
-                vim.cmd("COQnow --shut-up")
             end,
         },
         {
@@ -182,34 +166,34 @@ lua <<EOF
                     },
                     current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
                     on_attach = function(bufnr)
-				    local function map(mode, lhs, rhs, opts)
-				        opts = vim.tbl_extend('force', {noremap = true, silent = true}, opts or {})
-				        vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
-				    end
-				
-				    -- Navigation
-				    map('n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", {expr=true})
-				    map('n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", {expr=true})
-				
-				    -- Actions
-				    map('n', '<leader>hs', ':Gitsigns stage_hunk<CR>')
-				    map('v', '<leader>hs', ':Gitsigns stage_hunk<CR>')
-				    map('n', '<leader>hr', ':Gitsigns reset_hunk<CR>')
-				    map('v', '<leader>hr', ':Gitsigns reset_hunk<CR>')
-				    map('n', '<leader>hS', '<cmd>Gitsigns stage_buffer<CR>')
-				    map('n', '<leader>hu', '<cmd>Gitsigns undo_stage_hunk<CR>')
-				    map('n', '<leader>hR', '<cmd>Gitsigns reset_buffer<CR>')
-				    map('n', '<leader>hp', '<cmd>Gitsigns preview_hunk<CR>')
-				    map('n', '<leader>hb', '<cmd>lua require"gitsigns".blame_line{full=true}<CR>')
-				    map('n', '<leader>tb', '<cmd>Gitsigns toggle_current_line_blame<CR>')
-				    map('n', '<leader>hd', '<cmd>Gitsigns diffthis<CR>')
-				    map('n', '<leader>hD', '<cmd>lua require"gitsigns".diffthis("~")<CR>')
-				    map('n', '<leader>td', '<cmd>Gitsigns toggle_deleted<CR>')
-				
-				    -- Text object
-				    map('o', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
-				    map('x', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
-				  end
+                        local function map(mode, lhs, rhs, opts)
+                            opts = vim.tbl_extend('force', {noremap = true, silent = true}, opts or {})
+                            vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
+                        end
+                     
+                        -- Navigation
+                        map('n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", {expr=true})
+                        map('n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", {expr=true})
+                     
+                        -- Actions
+                        map('n', '<leader>hs', ':Gitsigns stage_hunk<CR>')
+                        map('v', '<leader>hs', ':Gitsigns stage_hunk<CR>')
+                        map('n', '<leader>hr', ':Gitsigns reset_hunk<CR>')
+                        map('v', '<leader>hr', ':Gitsigns reset_hunk<CR>')
+                        map('n', '<leader>hS', '<cmd>Gitsigns stage_buffer<CR>')
+                        map('n', '<leader>hu', '<cmd>Gitsigns undo_stage_hunk<CR>')
+                        map('n', '<leader>hR', '<cmd>Gitsigns reset_buffer<CR>')
+                        map('n', '<leader>hp', '<cmd>Gitsigns preview_hunk<CR>')
+                        map('n', '<leader>hb', '<cmd>lua require"gitsigns".blame_line{full=true}<CR>')
+                        map('n', '<leader>tb', '<cmd>Gitsigns toggle_current_line_blame<CR>')
+                        map('n', '<leader>hd', '<cmd>Gitsigns diffthis<CR>')
+                        map('n', '<leader>hD', '<cmd>lua require"gitsigns".diffthis("~")<CR>')
+                        map('n', '<leader>td', '<cmd>Gitsigns toggle_deleted<CR>')
+                     
+                        -- Text object
+                        map('o', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+                        map('x', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+                      end
                 }
             end,
         },
@@ -228,13 +212,7 @@ lua <<EOF
             end,
         },
 
-        --theme and visuals
-        { 
-            "bratpeki/truedark-vim",
-            config = function()
-                vim.cmd("colorscheme truedark")
-            end,
-        },
+        --visuals
         {
             "tjdevries/express_line.nvim",
             dependencies = {
