@@ -15,10 +15,10 @@ case $OS in
 
     #deps and utils for ubuntu
     if [[ $distro == *"Ubuntu"* ]]; then
-      sudo apt -y install git fzf vim fortune cowsay htop tmux ncdu autojump
+      apt -y install git fzf vim fortune cowsay htop tmux ncdu autojump
     else
       if which emerge &> /dev/null; then
-        sudo emerge --quiet git fzf fortune cowsay htop tmux ncdu autojump zsh-completions gentoo-zsh-completions
+        emerge --quiet git fzf fortune cowsay htop tmux ncdu autojump zsh-completions gentoo-zsh-completions
       else
         echo "Unknown distro! I cant install deps and utils..."
         exit 1

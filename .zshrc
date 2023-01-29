@@ -80,6 +80,8 @@ zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
 OS=$(uname -s)
 case $OS in
   Darwin)
+	[ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
+
     export GPG_TTY=$(tty)
 
     export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:${PATH}"
@@ -97,6 +99,11 @@ case $OS in
 	;;
 
   Linux)
+	if test -f /usr/share/autojump/autojump.zsh
+	then
+	    source /usr/share/autojump/autojump.zsh
+	fi
+
 	export PATH=/usr/lib/docker/cli-plugins:$PATH
     ;;
 
