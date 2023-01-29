@@ -1,15 +1,11 @@
 # dotfiles
 
-my personal dotfiles repo. feel free to use or modify. 
+My personal dotfiles repo. Feel free to use or modify. 
 
 ## install
 
-on your pc (apt based distros, pacman based distros or brew for macs)
+Works well on M1 macs, also apt and portage based distros.
 ```sh
 ./install.sh
 ```
 
-or on your server with lite config
-```sh
-./install_lite.sh
-```

@@ -7,8 +7,7 @@ OS=$(uname -s)
 case $OS in
   Darwin)
     #deps and cool utils on macos
-    brew install exa fd git-delta bat tealdeer zoxide starship fzf fortune cowsay htop tmux ncdu git gnupg pinentry-mac ffmpeg mitmproxy keycastr youtube-dl zsh cocoapods node yarn zsh-completions ripgrep kotlin-language-server
-    npm install -g typescript-language-server
+    brew install tealdeer fzf fortune cowsay htop tmux ncdu git gnupg pinentry-mac ffmpeg mitmproxy keycastr youtube-dl zsh cocoapods zsh-completions starship
     ;;
 
   Linux)
@@ -16,14 +15,13 @@ case $OS in
 
     #deps and utils for ubuntu
     if [[ $distro == *"Ubuntu"* ]]; then
-      sudo apt -y install fzf vim fortune cowsay htop tmux ncdu pip libncurses5-dev
-      curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && rustup update stable && cargo install exa fd-find ripgrep git-delta bat tealdeer zoxide starship
-      pip install tldr httpie
+      sudo apt -y install git fzf vim fortune cowsay htop tmux ncdu autojump
     else
-      if which pacman &> /dev/null; then 
-        sudo pacman -Syu exa ripgrep fd git-delta bat tealdeer zoxide starship fzf neovim fortune-mod cowsay htop tmux httpie ncdu
+      if which emerge &> /dev/null; then
+        sudo emerge --quiet git fzf fortune cowsay htop tmux ncdu autojump zsh-completions gentoo-zsh-completions
       else
         echo "Unknown distro! I cant install deps and utils..."
+        exit 1
       fi
     fi
     ;;
@@ -56,7 +54,7 @@ fi
 #symlink nvimrc
 if [[ ! -L "$HOME/.config/nvim/init.vim" ]]; then
   echo "symlink nvim"
-  ln -fs $(pwd)/nvim $HOME/.config/nvim
+  ln -fs $(pwd)/nvim/init.vim $HOME/.config/nvim/init.vim
 fi
 
 #symlink tmux.conf
@@ -83,12 +81,6 @@ if [[ ! -L "$HOME/.config/starship.toml" ]]; then
   ln -fs $(pwd)/starship.toml $HOME/.config/starship.toml
 fi
 
-
-#install fast-syntax-highlighting plugin for oh-my-zsh
-if [[ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting" ]]; then
-  git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git \
-    ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting
-fi
 
 #install zsh-autosuggestions plugin for oh-my-zsh
 if [[ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions" ]]; then
@@ -121,14 +113,14 @@ if [[ ! -f "$HOME/.vim/autoload/plug.vim" ]]; then
 fi
 
 #symlink nvim exec
-which nvim &> /dev/null && ln -s $(which nvim) ~/.local/bin/vim
-which wezterm &> /dev/null && ln -s $(which wezterm) ~/.local/bin/gnome-terminal
+#which nvim &> /dev/null && ln -s $(which nvim) ~/.local/bin/vim
+#which wezterm &> /dev/null && ln -s $(which wezterm) ~/.local/bin/gnome-terminal
 
 #update vim plugins
 #vim -E -s -u $HOME/.vimrc +PlugInstall +qall
 
 #update tldr
-tldr --update
+#tldr --update
 
 #run zsh and build fzf color binary
 exec /bin/zsh -c "source ~/.zshrc && clear && reset && echo \"have a nice time!!!\""

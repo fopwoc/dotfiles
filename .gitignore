@@ -1,1 +1,7 @@
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
+
 nvim/lazy-lock.json
