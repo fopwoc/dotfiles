@@ -7,7 +7,7 @@ OS=$(uname -s)
 case $OS in
   Darwin)
     #deps and cool utils on macos
-    brew install tealdeer fzf fortune cowsay htop tmux ncdu git gnupg pinentry-mac ffmpeg mitmproxy keycastr youtube-dl zsh cocoapods zsh-completions starship
+    brew install coreutils tealdeer fzf fortune cowsay htop tmux ncdu git gnupg pinentry-mac ffmpeg mitmproxy keycastr youtube-dl zsh cocoapods zsh-completions starship
     ;;
 
   Linux)
