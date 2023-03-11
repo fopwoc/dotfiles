@@ -32,6 +32,8 @@ case $OS in
     ;;
 esac
 
+mkdir -p $HOME/.config
+
 #install oh-my-zsh
 if [[ ! -d "$HOME/.oh-my-zsh/" ]]; then
   RUNZSH=no sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --keep-zshrc
