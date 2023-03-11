@@ -134,6 +134,3 @@ alias :wq!='exit'
 
 alias claer='clear'
 
-
-#fancy
-fortune | cowsay -d -p
