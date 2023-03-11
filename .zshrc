@@ -42,7 +42,7 @@ ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 autoload -U compinit promptinit
 compinit -C
 
-eval "$(zoxide init zsh --cmd cd)"
+eval "$(zoxide init zsh --cmd j --hook prompt)"
 
 HISTFILE=~/.zsh_history
 HISTSIZE=999999999
@@ -116,8 +116,6 @@ esac
 
 
 #aliases
-alias j='cd'
-
 alias ls='exa'
 alias l='exa -la --group-directories-first'
 alias lg='l --git'
