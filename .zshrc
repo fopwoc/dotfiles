@@ -13,6 +13,9 @@ export PATH=$HOME/.pub-cache/bin:$PATH
 export EDITOR=$(which nvim &> /dev/zero && which nvim || which vi)
 export VISUAL=$(which nvim &> /dev/zero && which nvim || which vi)
 
+export _ZO_ECHO=1
+export LESSOPEN='|~/.lessfilter %s'
+
 
 #zsh specific
 export ZSH="$HOME/.oh-my-zsh"
@@ -39,8 +42,10 @@ ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 autoload -U compinit promptinit
 compinit -C
 
+eval "$(zoxide init zsh --cmd cd)"
+
 HISTFILE=~/.zsh_history
-HISTSIZE=9999999999
+HISTSIZE=999999999
 SAVEHIST=$HISTSIZE
 
 
@@ -82,9 +87,8 @@ zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
 OS=$(uname -s)
 case $OS in
   Darwin)
-	[ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
 	[[ -f $HOME/.dart-cli-completion/zsh-config.zsh ]] && . $HOME/.dart-cli-completion/zsh-config.zsh || true
-	
+
 	export GPG_TTY=$(tty)
 
     export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:${PATH}"
@@ -102,11 +106,6 @@ case $OS in
 	;;
 
   Linux)
-	if test -f /usr/share/autojump/autojump.zsh
-	then
-	    source /usr/share/autojump/autojump.zsh
-	fi
-
 	export PATH=/usr/lib/docker/cli-plugins:$PATH
     ;;
 
@@ -117,10 +116,16 @@ esac
 
 
 #aliases
-alias l='ls -lah --color=always --group-directories-first'
+alias j='cd'
 
-alias ty='echo "ur welcome"'
-alias please='sudo'
+alias ls='exa'
+alias l='exa -la --group-directories-first'
+alias lg='l --git'
+alias lt='l --tree --level 2'
+alias lst='exa --tree --level 2'
+alias ll='exa -lbGF --git'
+alias llm='exa -lbGd --git --sort=modified'
+alias lx='exa -lbhHigUmuSa@ --time-style=long-iso --git --color-scale'
 
 alias :q='exit'
 alias :q!='exit'
@@ -128,8 +133,6 @@ alias :wq='exit'
 alias :wq!='exit'
 
 alias claer='clear'
-
-alias yolo='git commit -m "$(curl --silent --fail https://whatthecommit.com/index.txt)"'
 
 
 #fancy

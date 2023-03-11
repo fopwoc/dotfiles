@@ -2,14 +2,14 @@
 mime=$(file -bL --mime-type "$1")
 category=${mime%%/*}
 kind=${mime##*/}
-ls ls -lah --color=always -- "$1" && echo ""
+exa -la --git --header --tree --level=0 -- "$1" && echo ""
 
 if [ -d "$1" ]; then
-	ls -1a --color=always --group-directories-first "$1"
+	exa -1a --color=always "$1"
 elif [ "$category" = text ]; then
-	cat --number "$1"
+	bat --color=always --style=numbers --line-range=:500 "$1"
 elif [ "$mime" = application/json ]; then
-	cat --number "$1"
+	bat --color=always --style=numbers --line-range=:500 "$1"
 else
 	file -b "$1"
 	file -b --mime "$1"

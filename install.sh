@@ -7,7 +7,7 @@ OS=$(uname -s)
 case $OS in
   Darwin)
     #deps and cool utils on macos
-    brew install coreutils tealdeer fzf fortune cowsay htop tmux ncdu git gnupg pinentry-mac ffmpeg mitmproxy keycastr yt-dlp zsh cocoapods zsh-completions starship scrcpy temurin font-monocraft font-jetbrains-mono iina
+    brew install coreutils exa fd git-delta bat tealdeer zoxide fzf fortune cowsay htop tmux ncdu git gnupg pinentry-mac ffmpeg mitmproxy keycastr yt-dlp zsh cocoapods zsh-completions scrcpy openjdk@17 starship font-monocraft font-jetbrains-mono iina
     ;;
 
   Linux)
@@ -15,10 +15,10 @@ case $OS in
 
     #deps and utils for ubuntu
     if [[ $distro == *"Ubuntu"* ]] || [[ $distro == *"Debian"* ]]; then
-      apt -y install git fzf vim fortune cowsay htop tmux ncdu autojump
+      apt -y install exa fd bat zoxide git fzf vim fortune cowsay htop tmux ncdu
     else
       if which emerge &> /dev/null; then
-        emerge --quiet git fzf fortune cowsay htop tmux ncdu autojump zsh-completions gentoo-zsh-completions
+        emerge --quiet exa fd bat zoxide git fzf fortune cowsay htop tmux ncdu zsh-completions gentoo-zsh-completions
       else
         echo "Unknown distro! I cant install deps and utils..."
         exit 1
