@@ -7,14 +7,14 @@ OS=$(uname -s)
 case $OS in
   Darwin)
     #deps and cool utils on macos
-    brew install coreutils tealdeer fzf fortune cowsay htop tmux ncdu git gnupg pinentry-mac ffmpeg mitmproxy keycastr youtube-dl zsh cocoapods zsh-completions starship
+    brew install coreutils tealdeer fzf fortune cowsay htop tmux ncdu git gnupg pinentry-mac ffmpeg mitmproxy keycastr yt-dlp zsh cocoapods zsh-completions starship scrcpy temurin font-monocraft font-jetbrains-mono iina
     ;;
 
   Linux)
     distro=$(uname -v)
 
     #deps and utils for ubuntu
-    if [[ $distro == *"Ubuntu"* ]]; then
+    if [[ $distro == *"Ubuntu"* ]] || [[ $distro == *"Debian"* ]]; then
       apt -y install git fzf vim fortune cowsay htop tmux ncdu autojump
     else
       if which emerge &> /dev/null; then
@@ -40,75 +40,75 @@ fi
 #symlink zshrc
 if [[ ! -L "$HOME/.zshrc" ]]; then
   echo "symlink zshrc"
-  mv $HOME/.zshrc $HOME/.zshrc.bak
-  ln -s $(pwd)/.zshrc $HOME/.zshrc
+  mv "$HOME/.zshrc" "$HOME/.zshrc.bak"
+  ln -s "$(pwd)/.zshrc" "$HOME/.zshrc"
 fi
 
 #symlink vimrc
 if [[ ! -L "$HOME/.vimrc" ]]; then
   echo "symlink vimrc"
-  mv $HOME/.vimrc $HOME/.vimrc.bak
-  ln -s $(pwd)/.vimrc $HOME/.vimrc
+  mv "$HOME/.vimrc" "$HOME/.vimrc.bak"
+  ln -s "$(pwd)/.vimrc" "$HOME/.vimrc"
 fi
 
 #symlink nvimrc
 if [[ ! -L "$HOME/.config/nvim/init.vim" ]]; then
   echo "symlink nvim"
-  ln -fs $(pwd)/nvim/init.vim $HOME/.config/nvim/init.vim
+  ln -fs "$(pwd)/nvim/init.vim" "$HOME/.config/nvim/init.vim"
 fi
 
 #symlink tmux.conf
 if [[ ! -L "$HOME/.tmux.conf" ]]; then
   echo "symlink tmux"
-  ln -fs $(pwd)/.tmux.conf $HOME/.tmux.conf
+  ln -fs "$(pwd)/.tmux.conf" "$HOME/.tmux.conf"
 fi
 
 #symlink wezterm
 if [[ ! -L "$HOME/.config/wezterm" ]]; then
   echo "symlink wezterm"
-  ln -fs $(pwd)/wezterm $HOME/.config/wezterm
+  ln -fs "$(pwd)/wezterm" "$HOME/.config/wezterm"
 fi
 
 #symlink .lessfilter
 if [[ ! -L "$HOME/.lessfilter" ]]; then
   echo "symlink lessfilter"
-  ln -fs $(pwd)/.lessfilter $HOME/.lessfilter
+  ln -fs "$(pwd)/.lessfilter" "$HOME/.lessfilter"
 fi
 
 #symlink .starship.toml
 if [[ ! -L "$HOME/.config/starship.toml" ]]; then
   echo "symlink starship.toml"
-  ln -fs $(pwd)/starship.toml $HOME/.config/starship.toml
+  ln -fs "$(pwd)/starship.toml" "$HOME/.config/starship.toml"
 fi
 
 
 #install zsh-autosuggestions plugin for oh-my-zsh
 if [[ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions" ]]; then
   git clone https://github.com/zsh-users/zsh-autosuggestions.git \
-    ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
 fi
 
 #install autoupdate plugin for oh-my-zsh
 if [[ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/autoupdate" ]]; then
 git clone https://github.com/TamCore/autoupdate-oh-my-zsh-plugins.git \
-  ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/autoupdate
+  "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/autoupdate"
 fi
 
 #install fzf-tab plugin for oh-my-zsh
 if [[ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fzf-tab" ]]; then
   git clone https://github.com/Aloxaf/fzf-tab.git \
-    ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fzf-tab
+    "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fzf-tab"
 fi
 
 #install ssh plugin for oh-my-zsh
 if [[ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/ssh" ]]; then
   git clone https://github.com/zpm-zsh/ssh.git \
-    ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/ssh
+    "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/ssh"
 fi
 
 #install vim plug
 if [[ ! -f "$HOME/.vim/autoload/plug.vim" ]]; then
-  curl -fLo $HOME/.vim/autoload/plug.vim --create-dirs \
+  curl -fLo "$HOME/.vim/autoload/plug.vim" --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 

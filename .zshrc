@@ -1,7 +1,9 @@
 #generic
-LC_CTYPE=en_US.UTF-8
-LC_ALL=en_US.UTF-8
-LC_TIME=ru_RU.UTF-8
+export LANG="en_US"
+export LANGUAGE=${LANG}
+export LC_ALL=
+export LC_CTYPE=en_US.UTF-8
+export LC_TIME=ru_RU.UTF-8
 
 export TERM="xterm-256color"
 
@@ -81,8 +83,9 @@ OS=$(uname -s)
 case $OS in
   Darwin)
 	[ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
-
-    export GPG_TTY=$(tty)
+	[[ -f $HOME/.dart-cli-completion/zsh-config.zsh ]] && . $HOME/.dart-cli-completion/zsh-config.zsh || true
+	
+	export GPG_TTY=$(tty)
 
     export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:${PATH}"
     export MANPATH="/opt/homebrew/opt/coreutils/libexec/gnuman:${MANPATH}"
