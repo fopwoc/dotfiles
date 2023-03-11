@@ -18,7 +18,7 @@ case $OS in
       apt -y install curl exa fd bat zoxide git fzf vim fortune cowsay htop tmux ncdu
     else
       if which emerge &> /dev/null; then
-        emerge --quiet curl exa fd bat zoxide git fzf fortune cowsay htop tmux ncdu zsh-completions gentoo-zsh-completions
+        emerge --quiet net-misc/curl exa fd bat zoxide git fzf fortune cowsay htop tmux ncdu zsh-completions gentoo-zsh-completions
       else
         echo "Unknown distro! I cant install deps and utils..."
         exit 1
