@@ -15,7 +15,7 @@ case $OS in
 
     #deps and utils for ubuntu
     if [[ $distro == *"Ubuntu"* ]] || [[ $distro == *"Debian"* ]]; then
-      apt -y install curl exa fd-find bat zoxide git fzf vim htop tmux ncdu zsh docker docker-compose
+      apt -y install curl exa fd-find bat zoxide git fzf vim htop tmux ncdu zsh docker docker-compose wireguard-tools
     else
       if which emerge &> /dev/null; then
         emerge --quiet net-misc/curl exa fd bat zoxide dev-vcs/git fzf htop tmux ncdu zsh-completions gentoo-zsh-completions
