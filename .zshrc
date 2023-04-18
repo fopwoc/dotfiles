@@ -103,6 +103,8 @@ case $OS in
 	export PATH=/opt/flutter/bin:$PATH
 	export PATH=$HOME/Library/Application\ Support/JetBrains/Toolbox/scripts:$PATH
 	export PATH=$HOME/Library/Android/sdk/platform-tools:$PATH
+
+	export JAVA_HOME=$(/usr/libexec/java_home)
 	;;
 
   Linux)
