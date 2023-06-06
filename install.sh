@@ -14,15 +14,16 @@ case $OS in
     distro=$(uname -v)
 
     #deps and utils for ubuntu
-    if [[ $distro == *"Ubuntu"* ]] || [[ $distro == *"Debian"* ]]; then
+    if which apt &> /dev/null; then
       apt -y install curl exa fd-find bat zoxide git fzf vim htop tmux ncdu zsh docker docker-compose wireguard-tools
+    elif which emerge &> /dev/null; then
+      emerge --quiet net-misc/curl exa fd bat zoxide dev-vcs/git fzf htop tmux ncdu zsh-completions gentoo-zsh-completions
+    elif which pacman &> /dev/null; then
+      pacman -Syu curl exa fd bat zoxide git fzf vim htop tmux ncdu zsh docker docker-compose wireguard-tools
     else
-      if which emerge &> /dev/null; then
-        emerge --quiet net-misc/curl exa fd bat zoxide dev-vcs/git fzf htop tmux ncdu zsh-completions gentoo-zsh-completions
-      else
-        echo "Unknown distro! I cant install deps and utils..."
-        exit 1
-      fi
+      echo "Unknown distro! I cant install deps and utils..."
+      exit 1
+    fi
     fi
     ;;
 

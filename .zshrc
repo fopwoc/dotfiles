@@ -1,7 +1,7 @@
 #generic
-export LANG="en_US"
+export LANG=en_US.UTF-8
 export LANGUAGE=${LANG}
-export LC_ALL=
+export LC_ALL=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 export LC_TIME=ru_RU.UTF-8
 
@@ -100,7 +100,6 @@ case $OS in
 	eval "$(starship init zsh)"
 
 	export PATH="/opt/homebrew/opt/unzip/bin:$PATH"
-	export PATH=/opt/flutter/bin:$PATH
 	export PATH=$HOME/Library/Application\ Support/JetBrains/Toolbox/scripts:$PATH
 	export PATH=$HOME/Library/Android/sdk/platform-tools:$PATH
 
@@ -134,3 +133,5 @@ alias :wq!='exit'
 
 alias claer='clear'
 
+alias dart='fvm dart'
+alias flutter='fvm flutter'
