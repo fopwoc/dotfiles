@@ -24,7 +24,6 @@ case $OS in
       echo "Unknown distro! I cant install deps and utils..."
       exit 1
     fi
-    fi
     ;;
 
   *)

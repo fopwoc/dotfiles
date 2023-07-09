@@ -48,7 +48,6 @@ HISTFILE=~/.zsh_history
 HISTSIZE=999999999
 SAVEHIST=$HISTSIZE
 
-
 #FZF preview
 FZF_FLAGS='--multi --height=50% --preview-window=right:70%:wrap'
 FZF_PREVIEW='less ${(Q)realpath}'
@@ -95,11 +94,11 @@ case $OS in
     export MANPATH="/opt/homebrew/opt/coreutils/libexec/gnuman:${MANPATH}"
 
 	FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
-	FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 
 	eval "$(starship init zsh)"
 
-	export PATH="/opt/homebrew/opt/unzip/bin:$PATH"
+	[[ $commands[kubectl] ]] && source <(kubectl completion zsh)
+
 	export PATH=$HOME/Library/Application\ Support/JetBrains/Toolbox/scripts:$PATH
 	export PATH=$HOME/Library/Android/sdk/platform-tools:$PATH
 
