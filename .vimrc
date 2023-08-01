@@ -5,12 +5,14 @@ set lazyredraw
 set wildmenu
 set ai
 set splitbelow
-set mouse=a
+set mouse=
+set ttymouse=
 set nowrap linebreak nolist
 set cursorline
 set showcmd
 set ttyfast
 set autochdir
+set incsearch
 
 set clipboard=unnamedplus
 set t_Co=256
@@ -22,7 +24,7 @@ set hlsearch
 syntax enable
 filetype plugin indent on
 
-set spell spelllang=ru_ru,en_us
+"set spell spelllang=ru_ru,en_us
 set nospell
 
 autocmd BufEnter *.dart :setlocal tabstop=2 shiftwidth=2 expandtab cc=80
@@ -38,22 +40,10 @@ autocmd VimEnter,WinEnter * let &scrolloff = winheight(0) / 4
 
 if !has ('nvim')
     call plug#begin('~/.vim/plugged')
-        "Plug 'tpope/vim-sensible'
         Plug 'sheerun/vim-polyglot'
-        Plug 'mhinz/vim-signify'
         Plug 'fopwoc/truedark256-vim'
-        Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
     call plug#end()
- 
-    let g:plug_window = "new"
-    
-    let g:fzf_preview_window = 'right:75%'
-    let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6  }  }
-    
-    set updatetime=100
-   
     let g:vim_markdown_strikethrough = 1
-
     colorscheme truedark256
 endif
 

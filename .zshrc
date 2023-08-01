@@ -18,9 +18,11 @@ export LESSOPEN='|~/.lessfilter %s'
 
 
 #zsh specific
-export ZSH="$HOME/.oh-my-zsh"
+ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="tjkirch"
-export UPDATE_ZSH_DAYS=7
+UPDATE_ZSH_DAYS=14
+DISABLE_UPDATE_PROMPT=true
+ZSH_CUSTOM_AUTOUPDATE_QUIET=true
 COMPLETION_WAITING_DOTS="true"
 ZSH_DISABLE_COMPFIX=true
 
@@ -47,6 +49,7 @@ eval "$(zoxide init zsh --cmd j --hook prompt)"
 HISTFILE=~/.zsh_history
 HISTSIZE=999999999
 SAVEHIST=$HISTSIZE
+
 
 #FZF preview
 FZF_FLAGS='--multi --height=50% --preview-window=right:70%:wrap'
@@ -82,33 +85,30 @@ zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
 	esac'
 
 
-#OS related settings
+#global env
+FVM_HOME="$HOME/.fvm/"
+
+
+#OS related env
 OS=$(uname -s)
 case $OS in
   Darwin)
+  	eval "$(starship init zsh)"
 	[[ -f $HOME/.dart-cli-completion/zsh-config.zsh ]] && . $HOME/.dart-cli-completion/zsh-config.zsh || true
+	FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
 
 	export GPG_TTY=$(tty)
 
     export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:${PATH}"
     export MANPATH="/opt/homebrew/opt/coreutils/libexec/gnuman:${MANPATH}"
 
-	FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
-
-	eval "$(starship init zsh)"
-
-	[[ $commands[kubectl] ]] && source <(kubectl completion zsh)
-
 	export PATH=$HOME/Library/Application\ Support/JetBrains/Toolbox/scripts:$PATH
 	export PATH=$HOME/Library/Android/sdk/platform-tools:$PATH
 
 	export JAVA_HOME=$(/usr/libexec/java_home)
 	;;
-
   Linux)
-	export PATH=/usr/lib/docker/cli-plugins:$PATH
     ;;
-
   *)
     echo "unknown operation system $OS"
     ;;
