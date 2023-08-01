@@ -7,7 +7,7 @@ OS=$(uname -s)
 case $OS in
   Darwin)
     #deps and cool utils on macos
-    brew install curl coreutils exa fd git-delta bat tealdeer zoxide fzf htop tmux ncdu git gnupg pinentry-mac ffmpeg mitmproxy keycastr yt-dlp zsh cocoapods zsh-completions scrcpy openjdk@17 starship font-monocraft font-jetbrains-mono iina
+    brew install curl coreutils exa fd git-delta bat tealdeer zoxide fzf htop tmux ncdu git gnupg pinentry-mac ffmpeg mitmproxy keycastr yt-dlp zsh cocoapods zsh-completions scrcpy openjdk@17 starship font-monocraft font-jetbrains-mono iina cowsay fortune
     ;;
 
   Linux)
@@ -15,7 +15,7 @@ case $OS in
 
     #deps and utils for ubuntu
     if which apt &> /dev/null; then
-      apt -y install curl exa fd-find bat zoxide git fzf vim htop tmux ncdu zsh docker docker-compose wireguard-tools
+      apt -y install curl exa fd-find bat zoxide git fzf vim htop tmux ncdu zsh docker docker-compose wireguard-tools fortune-mod cowsay
     elif which emerge &> /dev/null; then
       emerge --quiet net-misc/curl exa fd bat zoxide dev-vcs/git fzf htop tmux ncdu zsh-completions gentoo-zsh-completions
     elif which pacman &> /dev/null; then

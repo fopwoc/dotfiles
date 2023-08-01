@@ -134,3 +134,7 @@ alias claer='clear'
 
 alias dart='fvm dart'
 alias flutter='fvm flutter'
+
+
+#fancy
+fortune | cowsay -d -p
