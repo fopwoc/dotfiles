@@ -108,6 +108,7 @@ case $OS in
 	export JAVA_HOME=$(/usr/libexec/java_home)
 	;;
   Linux)
+    export PATH="/usr/games:${PATH}"
     ;;
   *)
     echo "unknown operation system $OS"
