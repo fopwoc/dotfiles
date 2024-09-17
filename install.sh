@@ -63,8 +63,8 @@ symlink_vim() {
   replace_with_symlink .vimrc ~/.vimrc
 
   #install vim plug
-  if [[ ! -f "~/.vim/autoload/plug.vim" ]]; then
-    curl -fLo "~/.vim/autoload/plug.vim" --create-dirs \
+  if [[ ! -f "$HOME/.vim/autoload/plug.vim" ]]; then
+    curl -fLo "$HOME/.vim/autoload/plug.vim" --create-dirs \
       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   fi
 }
