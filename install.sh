@@ -85,13 +85,6 @@ symlink_xmonad() {
 #define system
 OS=$(uname -s)
 
-# Parse argument for VPS flag
-VPS_MODE=false
-if [[ "$1" == "--vps" ]]; then
-    VPS_MODE=true
-    echo "Running in VPS mode. Skipping Picom and Xmonad symlinks."
-fi
-
 case $OS in
   Darwin)
     brew install \
@@ -109,19 +102,15 @@ case $OS in
       apt -y install fish fastfetch zoxide eza fd-find tealdeer ncdu vim htop tmux
     elif which emerge &> /dev/null; then
       emerge --quiet #TODO
-
-      # Only run these symlinks if not in VPS mode
-      if [[ "$VPS_MODE" == false ]]; then
-        symlink_wezterm
-        symlink_picom
-        symlink_xmonad
-      fi
     else
       echo "Unknown distro! I can't install deps and utils..."
       exit 1
     fi
-    ;;
 
+    symlink_wezterm
+    symlink_picom
+    symlink_xmonad
+    ;;
   *)
     echo "Unknown operating system $OS"
     exit 1
