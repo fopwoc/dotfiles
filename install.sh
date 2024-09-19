@@ -62,7 +62,7 @@ symlink_fish() {
 symlink_vim() {
   replace_with_symlink .vimrc ~/.vimrc
 
-  #install vim plug
+  # Install vim plug if not installed
   if [[ ! -f "$HOME/.vim/autoload/plug.vim" ]]; then
     curl -fLo "$HOME/.vim/autoload/plug.vim" --create-dirs \
       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -85,6 +85,13 @@ symlink_xmonad() {
 #define system
 OS=$(uname -s)
 
+# Parse argument for VPS flag
+VPS_MODE=false
+if [[ "$1" == "--vps" ]]; then
+    VPS_MODE=true
+    echo "Running in VPS mode. Skipping Picom and Xmonad symlinks."
+fi
+
 case $OS in
   Darwin)
     brew install \
@@ -97,29 +104,33 @@ case $OS in
   Linux)
     distro=$(uname -v)
 
-    #deps and utils for ubuntu
+    # Deps and utils for Ubuntu
     if which apt &> /dev/null; then
-      apt -y install fish zoxide eza fd-find tealdeer ncdu curl git vim htop tmux
+      apt -y install fish fastfetch zoxide eza fd-find tealdeer ncdu vim htop tmux
     elif which emerge &> /dev/null; then
       emerge --quiet #TODO
 
-      symlink_wezterm
-      symlink_picom
-      symlink_xmonad
+      # Only run these symlinks if not in VPS mode
+      if [[ "$VPS_MODE" == false ]]; then
+        symlink_wezterm
+        symlink_picom
+        symlink_xmonad
+      fi
     else
-      echo "Unknown distro! I cant install deps and utils..."
+      echo "Unknown distro! I can't install deps and utils..."
       exit 1
     fi
     ;;
 
   *)
-    echo "unknown operation system $OS"
+    echo "Unknown operating system $OS"
     exit 1
     ;;
 esac
 
+# Common symlinks for both desktop and VPS
 symlink_fish
 symlink_vim
 
-#exec new shell
-exec $(which fish) -c "clear && reset && echo \"have a nice day!\""
+# Exec new shell
+exec $(which fish) -c "clear && reset && echo 'Have a nice day!'"
