@@ -2,14 +2,16 @@ set fish_greeting
 set -g fish_prompt_pwd_dir_length 3
 set -g fish_prompt_pwd_full_dirs 3
 
-set -x EDITOR $(which vim)
-set -x VISUAL $(which vim)
+set -Ux PAGER less
+set -Ux EDITOR vim
+set -Ux VISUAL vim
 
 set -x PATH ~/.local/bin $PATH
 
 set -l os (uname)
 if test "$os" = Darwin
     set -x PATH /opt/homebrew/bin $PATH
+    set -U fish_user_paths $fish_user_paths "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/"
 else if test "$os" = Linux
     # do things for Linux
 else
