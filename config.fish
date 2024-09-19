@@ -10,25 +10,33 @@ set -x PATH ~/.local/bin $PATH
 
 set -l os (uname)
 if test "$os" = Darwin
-    set -x PATH /opt/homebrew/bin $PATH
+    set -x GPG_TTY $(tty)
+    set -x JAVA_HOME $(/usr/libexec/java_home)
+
+    set -U fish_user_paths $fish_user_paths "/opt/homebrew/bin"
     set -U fish_user_paths $fish_user_paths "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/"
+
+    alias tmux "zellij"
+    alias ubuntu "docker run -it ubuntu:latest bash" 
 else if test "$os" = Linux
     # do things for Linux
 else
     # do things for other operating systems
 end
 
-zoxide init fish --cmd j | source
+if type -q zoxide
+    zoxide init fish --cmd j | source
+end
 
-set -x GPG_TTY $(tty)
-set -x JAVA_HOME $(/usr/libexec/java_home)
-
-alias ls "eza"
-alias l "eza -la --group-directories-first"
-alias lg "l --git"
-alias lt "l --tree --level 2"
-
-alias ubuntu "docker run -it ubuntu:latest bash" 
+# Check if 'eza' exists
+if type -q eza
+    alias ls "eza"
+    alias l "eza -la --group-directories-first"
+    alias lg "l --git"
+    alias lt "l --tree --level 2"
+else
+    alias l 'ls -la'
+end
 
 function fish_prompt
     # Capture the exit status of the last command
