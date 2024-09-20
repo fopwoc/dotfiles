@@ -101,7 +101,7 @@ case $OS in
     if which apt &> /dev/null; then
       apt -y install fish fastfetch zoxide eza fd-find tealdeer ncdu vim htop tmux
     elif which emerge &> /dev/null; then
-      emerge --quiet #TODO
+      #TODO
     else
       echo "Unknown distro! I can't install deps and utils..."
       exit 1
