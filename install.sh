@@ -101,7 +101,7 @@ case $OS in
     if which apt &> /dev/null; then
       apt -y install fish fastfetch zoxide eza fd-find tealdeer ncdu vim htop tmux
     elif which emerge &> /dev/null; then
-      #TODO
+      echo "Gentoo todo"
     else
       echo "Unknown distro! I can't install deps and utils..."
       exit 1
@@ -122,4 +122,4 @@ symlink_fish
 symlink_vim
 
 # Exec new shell
-exec $(which fish) -c "clear && reset && echo 'Have a nice day!'"
+exec $(which fish) -c "source ~/.config/fish/config.fish && echo 'Have a nice day!'"
