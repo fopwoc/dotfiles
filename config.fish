@@ -8,25 +8,6 @@ set -Ux VISUAL vim
 
 set -x PATH ~/.local/bin $PATH
 
-set -l os (uname)
-if test "$os" = Darwin
-    set -x GPG_TTY $(tty)
-
-    set -U JAVA_HOME "/Applications/Android Studio.app/Contents/jbr/Contents/Home"
-    set -U fish_user_paths ~/Library/Android/sdk/tools $fish_user_paths
-    set -U fish_user_paths ~/Library/Android/sdk/platform-tools $fish_user_paths
-    set -U fish_user_paths /opt/homebrew/opt/uutils-coreutils/libexec/uubin $fish_user_paths
-    set -U fish_user_paths /opt/homebrew/bin $fish_user_paths
-    set -U fish_user_paths "/Applications/Android Studio.app/Contents/MacOS" $fish_user_paths
-
-    alias tmux "zellij"
-    alias ubuntu "docker run -it -v /tmp/ubuntu:/tmp/ubuntu --privileged ubuntu:latest bash"
-    alias qbittorrent 'docker run -d --name=qbittorrent -e PUID=1000 -e PGID=1000 -e TZ=Europe/Moscow -p 8080:8080 -p 6881:6881 -p 6881:6881/udp -v /tmp/qbittorrent:/config -v ~/Downloads/torrent:/downloads --restart unless-stopped lscr.io/linuxserver/qbittorrent:latest'
-
-else if test "$os" = Linux
-    # do things for Linux
-end
-
 if type -q zoxide
     zoxide init fish --cmd j | source
 end
@@ -94,4 +75,28 @@ function fish_right_prompt
     set_color normal
 end
 
+set -l os (uname)
+if test "$os" = Darwin
+    set -x GPG_TTY $(tty)
+
+    set -U JAVA_HOME "/Applications/Android Studio.app/Contents/jbr/Contents/Home"
+    set -U fish_user_paths ~/Library/Android/sdk/tools $fish_user_paths
+    set -U fish_user_paths ~/Library/Android/sdk/platform-tools $fish_user_paths
+    set -U fish_user_paths /opt/homebrew/opt/uutils-coreutils/libexec/uubin $fish_user_paths
+    set -U fish_user_paths /opt/homebrew/bin $fish_user_paths
+    set -U fish_user_paths "/Applications/Android Studio.app/Contents/MacOS" $fish_user_paths
+
+    alias tmux "zellij"
+    alias ubuntu "docker run -it -v /tmp/ubuntu:/tmp/ubuntu --privileged ubuntu:latest bash"
+    alias qbittorrent 'docker run -d --name=qbittorrent -e PUID=1000 -e PGID=1000 -e TZ=Europe/Moscow -p 8080:8080 -p 6881:6881 -p 6881:6881/udp -v /tmp/qbittorrent:/config -v ~/Downloads/torrent:/downloads --restart unless-stopped lscr.io/linuxserver/qbittorrent:latest'
+
+else if test "$os" = Linux
+
+    if test -z "$WAYLAND_DISPLAY"
+        exec dbus-run-session labwc
+    end
+    # do things for Linux
+end
+
 fastfetch -s Title:Separator:OS:Host:Kernel:Uptime:Packages:Shell:Display:CPU:GPU:Memory:Swap:Disk:LocalIp:Battery:PowerAdapter:Locale:Break:Colors
+
