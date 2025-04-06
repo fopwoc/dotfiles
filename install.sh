@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # replace_with_symlink <path_to_original_file> <path_to_symlink>
-# 
+#
 # Arguments:
 #   <path_to_original_file> - The path to the original file that you want to create a symlink to.
 #   <path_to_symlink> - The path where the symlink should be created.
@@ -69,19 +69,6 @@ symlink_vim() {
   fi
 }
 
-symlink_wezterm() {
-  replace_with_symlink wezterm.lua ~/.config/wezterm/wezterm.lua
-}
-
-symlink_picom() {
-  replace_with_symlink picom.conf ~/.config/picom.conf
-}
-
-symlink_xmonad() {
-  replace_with_symlink xmonad.hs ~/.xmonad/xmonad.hs
-  replace_with_symlink xmobar.hs ~/.xmonad/xmobar.hs
-}
-
 #define system
 OS=$(uname -s)
 
@@ -101,15 +88,15 @@ case $OS in
     if which apt &> /dev/null; then
       apt -y install fish fastfetch zoxide eza fd-find tealdeer ncdu vim htop tmux
     elif which emerge &> /dev/null; then
-      echo "Gentoo todo"
+      echo "Gentoo TODO"
     else
       echo "Unknown distro! I can't install deps and utils..."
       exit 1
     fi
 
-    symlink_wezterm
-    symlink_picom
-    symlink_xmonad
+    # symlink_wezterm
+    # symlink_picom
+    # symlink_xmonad
     ;;
   *)
     echo "Unknown operating system $OS"

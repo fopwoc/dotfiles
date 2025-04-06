@@ -11,17 +11,20 @@ set -x PATH ~/.local/bin $PATH
 set -l os (uname)
 if test "$os" = Darwin
     set -x GPG_TTY $(tty)
-    set -x JAVA_HOME $(/usr/libexec/java_home)
 
-    set -U fish_user_paths $fish_user_paths "/opt/homebrew/bin"
-    set -U fish_user_paths $fish_user_paths "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/"
+    set -U JAVA_HOME "/Applications/Android Studio.app/Contents/jbr/Contents/Home"
+    set -U fish_user_paths ~/Library/Android/sdk/tools $fish_user_paths
+    set -U fish_user_paths ~/Library/Android/sdk/platform-tools $fish_user_paths
+    set -U fish_user_paths /opt/homebrew/opt/uutils-coreutils/libexec/uubin $fish_user_paths
+    set -U fish_user_paths /opt/homebrew/bin $fish_user_paths
+    set -U fish_user_paths "/Applications/Android Studio.app/Contents/MacOS" $fish_user_paths
 
     alias tmux "zellij"
-    alias ubuntu "docker run -it ubuntu:latest bash" 
+    alias ubuntu "docker run -it -v /tmp/ubuntu:/tmp/ubuntu --privileged ubuntu:latest bash"
+    alias qbittorrent 'docker run -d --name=qbittorrent -e PUID=1000 -e PGID=1000 -e TZ=Europe/Moscow -p 8080:8080 -p 6881:6881 -p 6881:6881/udp -v /tmp/qbittorrent:/config -v ~/Downloads/torrent:/downloads --restart unless-stopped lscr.io/linuxserver/qbittorrent:latest'
+
 else if test "$os" = Linux
     # do things for Linux
-else
-    # do things for other operating systems
 end
 
 if type -q zoxide
