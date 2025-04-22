@@ -92,11 +92,12 @@ if test "$os" = Darwin
 
 else if test "$os" = Linux
 
-    if test -z "$WAYLAND_DISPLAY"
-        exec dbus-run-session labwc
-    end
-    # do things for Linux
+   # if test -z "$WAYLAND_DISPLAY"; and test "$XDG_VTNR" -eq 1
+   #     #dbus-launch --exit-with-session -- labwc
+   #     dbus-run-session labwc
+   # else
+	fastfetch -s Title:Separator:OS:Host:Kernel:Uptime:Packages:Shell:Display:CPU:GPU:Memory:Swap:Disk:LocalIp:Battery:PowerAdapter:Locale:Break:Colors
+   # end
 end
 
-fastfetch -s Title:Separator:OS:Host:Kernel:Uptime:Packages:Shell:Display:CPU:GPU:Memory:Swap:Disk:LocalIp:Battery:PowerAdapter:Locale:Break:Colors
 
