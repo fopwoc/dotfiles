@@ -89,15 +89,10 @@ if test "$os" = Darwin
     alias tmux "zellij"
     alias ubuntu "docker run -it -v /tmp/ubuntu:/tmp/ubuntu --privileged ubuntu:latest bash"
     alias qbittorrent 'docker run -d --name=qbittorrent -e PUID=1000 -e PGID=1000 -e TZ=Europe/Moscow -p 8080:8080 -p 6881:6881 -p 6881:6881/udp -v /tmp/qbittorrent:/config -v ~/Downloads/torrent:/downloads --restart unless-stopped lscr.io/linuxserver/qbittorrent:latest'
-
 else if test "$os" = Linux
-
-   # if test -z "$WAYLAND_DISPLAY"; and test "$XDG_VTNR" -eq 1
-   #     #dbus-launch --exit-with-session -- labwc
-   #     dbus-run-session labwc
-   # else
-	fastfetch -s Title:Separator:OS:Host:Kernel:Uptime:Packages:Shell:Display:CPU:GPU:Memory:Swap:Disk:LocalIp:Battery:PowerAdapter:Locale:Break:Colors
-   # end
 end
 
+if status --is-login
+    fastfetch -s Title:Separator:OS:Host:Kernel:Uptime:Packages:Shell:Display:CPU:GPU:Memory:Swap:Disk:LocalIp:Battery:PowerAdapter:Locale:Break:Colors
+end
 
