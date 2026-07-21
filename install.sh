@@ -59,6 +59,10 @@ symlink_fish() {
   replace_with_symlink config.fish ~/.config/fish/config.fish
 }
 
+symlink_nvim() {
+  replace_with_symlink init.lua ~/.config/nvim/init.lua
+}
+
 symlink_vim() {
   replace_with_symlink .vimrc ~/.vimrc
 
@@ -72,41 +76,43 @@ symlink_vim() {
 #define system
 OS=$(uname -s)
 
-case $OS in
-  Darwin)
-    brew install \
-      fish zoxide zellij uutils-coreutils eza fd tealdeer ncdu \
-      gnupg pinentry-mac \
-      temurin scrcpy cocoapods fvm \
-      font-jetbrains-mono \
-      iina steermouse monitorcontrol orbstack
-    ;;
-  Linux)
-    distro=$(uname -v)
 
-    # Deps and utils for Ubuntu
-    if which apt &> /dev/null; then
-      apt -y install fish fastfetch zoxide eza fd-find tealdeer ncdu vim htop tmux
-    elif which emerge &> /dev/null; then
-      echo "Gentoo TODO"
-    else
-      echo "Unknown distro! I can't install deps and utils..."
-      exit 1
-    fi
-
-    # symlink_wezterm
-    # symlink_picom
-    # symlink_xmonad
-    ;;
-  *)
-    echo "Unknown operating system $OS"
-    exit 1
-    ;;
-esac
+#case $OS in
+#  Darwin)
+#    brew install \
+#      fish zoxide zellij uutils-coreutils eza fd tealdeer ncdu \
+#      gnupg pinentry-mac \
+#      temurin scrcpy cocoapods fvm \
+#      font-jetbrains-mono \
+#      iina steermouse monitorcontrol orbstack
+#    ;;
+#  Linux)
+#    distro=$(uname -v)
+#
+#    # Deps and utils for Ubuntu
+#    if which apt &> /dev/null; then
+#      apt -y install fish fastfetch zoxide eza fd-find tealdeer ncdu vim htop tmux
+#    elif which emerge &> /dev/null; then
+#      echo "Gentoo TODO"
+#    else
+#      echo "Unknown distro! I can't install deps and utils..."
+#      exit 1
+#    fi
+#
+#    # symlink_wezterm
+#    # symlink_picom
+#    # symlink_xmonad
+#    ;;
+#  *)
+#    echo "Unknown operating system $OS"
+#    exit 1
+#    ;;
+#esac
 
 # Common symlinks for both desktop and VPS
 symlink_fish
 symlink_vim
+symlink_nvim
 
 # Exec new shell
 exec $(which fish) -c "source ~/.config/fish/config.fish && echo 'Have a nice day!'"

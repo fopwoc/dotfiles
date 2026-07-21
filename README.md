@@ -1,11 +1,17 @@
 # dotfiles
 
-My personal dotfiles repo. Feel free to use or modify.
+My personal dotfiles. 
+
+In git history you can found how my setup was changed.
+
+![fastfetch.png](.github/assets/fastfetch.png)
+
+![nvim.png](.github/assets/nvim.png)
 
 ## install
-
-Works well on M1 macs, also apt and portage based distros.
 
 ```sh
 ./install.sh
 ```
+
+This script will backup your configs and replace them with symlinks to that repo.

@@ -79,20 +79,23 @@ set -l os (uname)
 if test "$os" = Darwin
     set -x GPG_TTY $(tty)
 
-    set -U JAVA_HOME "/Applications/Android Studio.app/Contents/jbr/Contents/Home"
     set -U fish_user_paths ~/Library/Android/sdk/tools $fish_user_paths
     set -U fish_user_paths ~/Library/Android/sdk/platform-tools $fish_user_paths
     set -U fish_user_paths /opt/homebrew/opt/uutils-coreutils/libexec/uubin $fish_user_paths
     set -U fish_user_paths /opt/homebrew/bin $fish_user_paths
-    set -U fish_user_paths "/Applications/Android Studio.app/Contents/MacOS" $fish_user_paths
+    set -U fish_user_paths $BUN_INSTALL/bin $fish_user_paths
 
-    alias tmux "zellij"
     alias ubuntu "docker run -it -v /tmp/ubuntu:/tmp/ubuntu --privileged ubuntu:latest bash"
+    alias ubuntux86 "docker run --platform linux/amd64 -it -v /tmp/ubuntu:/tmp/ubuntu --privileged ubuntu:latest bash"
     alias qbittorrent 'docker run -d --name=qbittorrent -e PUID=1000 -e PGID=1000 -e TZ=Europe/Moscow -p 8080:8080 -p 6881:6881 -p 6881:6881/udp -v /tmp/qbittorrent:/config -v ~/Downloads/torrent:/downloads --restart unless-stopped lscr.io/linuxserver/qbittorrent:latest'
+
+    # git last tag
+    alias "glt" "git describe --tags --abbrev=0 --always"
+
+    source ~/.orbstack/shell/init2.fish 2>/dev/null || :
 else if test "$os" = Linux
 end
 
 if status --is-login
-    fastfetch -s Title:Separator:OS:Host:Kernel:Uptime:Packages:Shell:Display:CPU:GPU:Memory:Swap:Disk:LocalIp:Battery:PowerAdapter:Locale:Break:Colors
+    fastfetch -s Title:Separator:OS:Host:Kernel:Uptime:CPU:GPU:Memory:Swap:Disk:LocalIp:Battery:PowerAdapter:Locale:Break:Colors
 end
-

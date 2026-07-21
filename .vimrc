@@ -41,5 +41,5 @@ call plug#begin('~/.vim/plugged')
     Plug 'sheerun/vim-polyglot'
     Plug 'fopwoc/truedark256-vim'
 call plug#end()
-
 colorscheme truedark256
+let mapleader = "\<Space>"
