@@ -70,3 +70,5 @@ Test behavior that can plausibly regress without an obvious compile-time failure
 Be concise by default. I will ask when I want more detail.
 
 Ask when important requirements are unclear. Do not guess when the answer could materially affect the design or implementation.
+
+@/Users/aspirin/.codex/RTK.md
