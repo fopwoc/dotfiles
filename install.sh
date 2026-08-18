@@ -73,6 +73,10 @@ symlink_vim() {
   fi
 }
 
+symlink_agents() {
+  replace_with_symlink AGENTS.md ~/.codex/AGENTS.md
+}
+
 #define system
 OS=$(uname -s)
 
@@ -113,6 +117,7 @@ OS=$(uname -s)
 symlink_fish
 symlink_vim
 symlink_nvim
+symlink_agents
 
 # Exec new shell
 exec $(which fish) -c "source ~/.config/fish/config.fish && echo 'Have a nice day!'"
