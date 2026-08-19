@@ -1,3 +1,8 @@
+# General
+
+- Always respond in English unless I explicitly request another language. Never infer the response language from the language of my messages or referenced content.
+- Do not spawn or delegate work to subagents unless I explicitly ask for it.
+
 # Instructions for code
 
 ## Things I believe in
@@ -64,6 +69,26 @@ Test behavior that can plausibly regress without an obvious compile-time failure
 - Test complex logic.
 - Do not test trivial mappings or similar code where incorrect structural changes would normally fail compilation.
 - Test formatting and similar helpers through representative inputs and outputs rather than implementation details.
+
+## Git
+
+By default, treat Git as read-only. Use Git freely for inspection, but do not modify repository state unless explicitly requested or working in a dedicated worktree.
+
+When working in a dedicated worktree:
+
+- Use a temporary `worktree/<task-name>` branch, where `<task-name>` is short descriptive `kebab-case`, e.g. `new-card-style`, `fix-client-list`.
+- Do not use prefixes such as `feat/`, `fix/`, `chore/`, or usernames unless explicitly requested.
+- Treat the corresponding `<task-name>` branch as the final task branch.
+- Commit completed work to the worktree branch.
+- After verification, create or fast-forward the final task branch to the completed worktree branch without checking it out or modifying the primary working tree.
+- Never overwrite or rewrite divergent history on the final task branch.
+- Keep commits local; do not push to remotes.
+- Leave the worktree clean before finishing.
+- Use very short, plain commit messages, e.g. `new card style in settings`, `fix client form list`, `locale typo`.
+- If commit does multiple major things at once you can combine 2 short messages with `+`, e.g. `fix conditional navigation in adaptive + redesign TopAppBar` 
+- Do not use Conventional Commits or prefixes such as `feat:`, `fix:`, or `chore:`.
+
+Outside a dedicated worktree, do not perform Git operations that modify repository state unless explicitly requested.
 
 # Conversation and planning
 
