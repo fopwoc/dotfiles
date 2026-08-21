@@ -3,6 +3,10 @@
 - Always respond in English unless I explicitly request another language. Never infer the response language from the language of my messages or referenced content.
 - Do not spawn or delegate work to subagents unless I explicitly ask for it.
 
+## Agents
+
+Do not spawn or delegate work to subagents unless I explicitly ask for it.
+
 # Instructions for code
 
 ## Things I believe in
@@ -22,7 +26,8 @@
 These conventions apply to every stack.
 
 - Follow a `layer-first` code hierarchy. Organize code by responsibility and usage instead of accumulating unrelated files in one directory or unrelated declarations in one file.
-- **Single file, single responsibility.** Usually keep one primary class, model, or substantial function per file and name the file after it. Small cohesive top-level functions may share a file named after their group or main concept.
+- **Single file, single responsibility.** Treat a file as one cohesive unit of code with one clear owner and purpose. Keep one primary class, interface, model, component, or substantial function per file. Code that exists only to support, test, or demonstrate that unit may stay with it; independent responsibilities belong in separate files.
+- Decompose code by responsibility and ownership, not merely by size. A large cohesive function is preferable to several trivial functions that only fragment its logic.
 - Put genuinely general-purpose helpers in a project-wide or module-wide `utils` directory.
 - Embrace expressive and advanced language features when they enable more elegant, concise, or type-safe solutions, even when simpler syntax could do the job.
 - Prefer developer convenience and simple solutions over architectural ceremony. Accept complexity when necessary or when it provides significant optimization.
