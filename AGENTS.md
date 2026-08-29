@@ -82,6 +82,7 @@ By default, treat Git as read-only. Use Git freely for inspection, but do not mo
 When working in a dedicated worktree:
 
 - Use a temporary `worktree/<task-name>` branch, where `<task-name>` is short descriptive `kebab-case`, e.g. `new-card-style`, `fix-client-list`.
+- If the current worktree is already on a task/non-default branch, reuse the current worktree and branch. Do not create a nested task branch unless I explicitly ask you to.
 - Do not use prefixes such as `feat/`, `fix/`, `chore/`, or usernames unless explicitly requested.
 - Treat the corresponding `<task-name>` branch as the final task branch.
 - Commit completed work to the worktree branch.
