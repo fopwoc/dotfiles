@@ -104,12 +104,18 @@ else if test "$os" = Linux
 end
 
 if status --is-interactive
+    set -l fastfetch_args
+
+    if test (uname) = Linux
+        set fastfetch_args -l small
+    end
+
     echo '{
       "modules": [
         "title",
         "separator",
         "os",
-        { "type": "host", "format": "{1}" },
+        { "type": "host", "format": "{family}" },
         "kernel",
         "uptime",
         "cpu",
@@ -124,5 +130,5 @@ if status --is-interactive
         "break",
         "colors"
       ]
-    }' | fastfetch --config -
+    }' | fastfetch $fastfetch_args --config -
 end
