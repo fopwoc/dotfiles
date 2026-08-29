@@ -22,6 +22,13 @@ else
     alias l 'ls -la'
 end
 
+# "!!" backport
+function __abbr_previous_command
+    echo $history[1]
+end
+
+abbr --add !! --position anywhere --function __abbr_previous_command
+
 function fish_prompt
     # Capture the exit status of the last command
     set last_status $status
@@ -96,6 +103,26 @@ if test "$os" = Darwin
 else if test "$os" = Linux
 end
 
-if status --is-login
-    fastfetch -s Title:Separator:OS:Host:Kernel:Uptime:CPU:GPU:Memory:Swap:Disk:LocalIp:Battery:PowerAdapter:Locale:Break:Colors
+if status --is-interactive
+    echo '{
+      "modules": [
+        "title",
+        "separator",
+        "os",
+        { "type": "host", "format": "{1}" },
+        "kernel",
+        "uptime",
+        "cpu",
+        "gpu",
+        "memory",
+        "swap",
+        { "type": "disk", "format": "{size-used} / {size-total} ({size-percentage})" },
+        "localip",
+        "battery",
+        "poweradapter",
+        "locale",
+        "break",
+        "colors"
+      ]
+    }' | fastfetch --config -
 end
