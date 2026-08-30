@@ -33,6 +33,7 @@ These conventions apply to every stack.
 - Prefer developer convenience and simple solutions over architectural ceremony. Accept complexity when necessary or when it provides significant optimization.
 - Prefer self-explanatory code over comments. Comment non-obvious reasoning or genuinely complex behavior.
 - Prefer the latest stable releases of toolchains, languages, libraries, and dependencies unless compatibility or project constraints require otherwise.
+- Do not repeat the project/application name in identifiers/environment variables whose scope is already application-specific. Prefer `LOG_LEVEL`, `DATA_DIR`, or `HTTP_PORT` over `FOO_BAR_LOG_LEVEL`, `FOO_BAR_DATA_DIR`, or `FOO_BAR_HTTP_PORT`. Add a project prefix only when the identifier is expected to share a namespace with other applications.
 
 ## Developer experience
 
