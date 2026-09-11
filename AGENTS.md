@@ -19,6 +19,7 @@ Skills are mandatory, not optional. Before creating or editing the first file of
 - `.kt`, `.kts`, Gradle Kotlin DSL → `kotlin`. Add `jetpack-compose` for any Compose UI (composables, screens, previews, theming, navigation). Add `kotlin-backend` for services, routing, persistence or API layers.
 - `.rs`, `Cargo.toml` → `rust`.
 - Frontend TS/JS (`.ts`, `.tsx`, `.js`, `.vue`, `.svelte`, `package.json`, node/bun projects) → `web-frontend`.
+- Dedicated git worktree or task branch → `worktree`.
 - Anything else: use a skill whenever its description matches the task.
 
 Respect skills marked as explicit-only; do not apply them unless explicitly requested.
@@ -81,24 +82,13 @@ Test behavior that can plausibly regress without an obvious compile-time failure
 
 ## Git
 
-By default, treat Git as read-only. Use Git freely for inspection, but do not modify repository state unless explicitly requested or working in a dedicated worktree.
+By default, treat Git as read-only. Use Git freely for inspection, but do not modify repository state unless explicitly requested or working in a dedicated worktree (see the `worktree` skill).
 
-When working in a dedicated worktree:
+When committing:
 
-- Use a temporary `worktree/<task-name>` branch, where `<task-name>` is short descriptive `kebab-case`, e.g. `new-card-style`, `fix-client-list`.
-- If the current worktree is already on a task/non-default branch, reuse the current worktree and branch. Do not create a nested task branch unless I explicitly ask you to.
-- Do not use prefixes such as `feat/`, `fix/`, `chore/`, or usernames unless explicitly requested.
-- Treat the corresponding `<task-name>` branch as the final task branch.
-- Commit completed work to the worktree branch.
-- After verification, create or fast-forward the final task branch to the completed worktree branch without checking it out or modifying the primary working tree.
-- Never overwrite or rewrite divergent history on the final task branch.
-- Keep commits local; do not push to remotes.
-- Leave the worktree clean before finishing.
 - Use very short, plain commit messages, e.g. `new card style in settings`, `fix client form list`, `locale typo`.
-- If commit does multiple major things at once you can combine 2 short messages with `+`, e.g. `fix conditional navigation in adaptive + redesign TopAppBar` 
+- If a commit does multiple major things at once, combine two short messages with `+`, e.g. `fix conditional navigation in adaptive + redesign TopAppBar`.
 - Do not use Conventional Commits or prefixes such as `feat:`, `fix:`, or `chore:`.
-
-Outside a dedicated worktree, do not perform Git operations that modify repository state unless explicitly requested.
 
 # Conversation and planning
 
