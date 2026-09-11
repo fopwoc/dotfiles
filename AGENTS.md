@@ -16,7 +16,7 @@
 
 Skills are mandatory, not optional. Before creating or editing the first file of a task, invoke the skill for its stack via the Skill tool — before the edit, not after. Route by what is being touched:
 
-- `.kt`, `.kts`, Gradle Kotlin DSL → `kotlin`. Add `jetpack-compose` for any Compose UI (composables, screens, previews, theming, navigation). Add `kotlin-backend` for services, routing, persistence or API layers.
+- `.kt`, `.kts`, Gradle Kotlin DSL → `kotlin`. Add `jetpack-compose` for any Compose UI (composables, screens, previews, theming, navigation). Backend and KSP rules live inside `kotlin`.
 - `.rs`, `Cargo.toml` → `rust`.
 - Frontend TS/JS (`.ts`, `.tsx`, `.js`, `.vue`, `.svelte`, `package.json`, node/bun projects) → `web-frontend`.
 - Dedicated git worktree or task branch → `worktree`.
@@ -79,6 +79,8 @@ Test behavior that can plausibly regress without an obvious compile-time failure
 - Test complex logic.
 - Do not test trivial mappings or similar code where incorrect structural changes would normally fail compilation.
 - Test formatting and similar helpers through representative inputs and outputs rather than implementation details.
+
+Verify with the compiler and tests. Do not drive emulators, simulators, or physical devices yourself (adb, simctl, screenshots, UI automation) — it is slow and unreliable. When something needs a manual check on a device, ask me to run it and describe what to look for; I will report back.
 
 ## Git
 
