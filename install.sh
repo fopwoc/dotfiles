@@ -75,6 +75,7 @@ symlink_vim() {
 
 symlink_agents() {
   replace_with_symlink AGENTS.md ~/.codex/AGENTS.md
+  replace_with_symlink AGENTS.md ~/.claude/CLAUDE.md
 }
 
 #define system

@@ -2,10 +2,7 @@
 
 - Always respond in English unless I explicitly request another language. Never infer the response language from the language of my messages or referenced content.
 - Do not spawn or delegate work to subagents unless I explicitly ask for it.
-
-## Agents
-
-Do not spawn or delegate work to subagents unless I explicitly ask for it.
+- For library, framework and API specifics — signatures, configuration, versions, migrations — verify against current docs via web search instead of answering from memory.
 
 # Instructions for code
 
@@ -17,9 +14,14 @@ Do not spawn or delegate work to subagents unless I explicitly ask for it.
 
 ## Skills
 
-- Kotlin: use `kotlin` as the base skill and combine it with specialized skills such as `kotlin-backend` or `jetpack-compose` when applicable.
-- Use other specialized skills when their description matches the task.
-- Respect skills marked as explicit-only; do not apply them unless explicitly requested.
+Skills are mandatory, not optional. Before creating or editing the first file of a task, invoke the skill for its stack via the Skill tool — before the edit, not after. Route by what is being touched:
+
+- `.kt`, `.kts`, Gradle Kotlin DSL → `kotlin`. Add `jetpack-compose` for any Compose UI (composables, screens, previews, theming, navigation). Add `kotlin-backend` for services, routing, persistence or API layers.
+- `.rs`, `Cargo.toml` → `rust`.
+- Frontend TS/JS (`.ts`, `.tsx`, `.js`, `.vue`, `.svelte`, `package.json`, node/bun projects) → `web-frontend`.
+- Anything else: use a skill whenever its description matches the task.
+
+Respect skills marked as explicit-only; do not apply them unless explicitly requested.
 
 ## General code conventions
 
@@ -56,7 +58,7 @@ Within cohesive implementations, prefer direct and simple integration.
 
 ## Existing code
 
-Sanity-check these instructions against the current codebase. Follow existing conventions and patterns unless I explicitly ask otherwise.
+Follow existing conventions and patterns unless I explicitly ask otherwise.
 
 ## Logs
 
@@ -103,5 +105,3 @@ Outside a dedicated worktree, do not perform Git operations that modify reposito
 Be concise by default. I will ask when I want more detail.
 
 Ask when important requirements are unclear. Do not guess when the answer could materially affect the design or implementation.
-
-@/Users/aspirin/.codex/RTK.md
